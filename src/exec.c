@@ -1,27 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 13:24:23 by kgebski          ###   ########.fr       */
+/*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
+/*   Updated: 2023/06/09 13:28:29 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdio.h>
-# include <unistd.h>
-# include "color.h"
-# include "libft.h"
-
-typedef struct s_env
+int	pc_exec_command(char *command)
 {
-
-}	t_env;
-
-int	pc_exec_command(char *command);
-
-#endif
+	(void)command;
+	return (0);
+}

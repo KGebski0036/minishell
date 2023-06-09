@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 13:11:50 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:27:26 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 int	main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	printf("Hello Wordl!");
-	return (0);
+	int	exit_status;
+
+	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
+	{
+		exit_status = pc_exec_command(av[2]);
+		exit(exit_status);
+	}
 }
