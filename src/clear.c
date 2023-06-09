@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 13:52:39 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/09 14:31:40 by kgebski          ###   ########.fr       */
+/*   Created: 2023/06/09 14:37:56 by kgebski           #+#    #+#             */
+/*   Updated: 2023/06/09 14:44:19 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pc_inti_envaiorment(t_env *env, char **env_var)
+void	pc_clear_env(t_env *env)
 {
-	env->stdi_fd = dup(0);
-	env->stdo_fd = dup(1);
-	env->erro_fd = dup(2);
-	pc_copy_env_variables(env, env_var);
+	pc_clear_2d_tab(env->env_var);
+}
+
+void	pc_clear_2d_tab(char **tab)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
 }

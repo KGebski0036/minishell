@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 14:01:50 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/09 16:05:04 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ int	main(int ac, char **av, char **env_var)
 		exit(exit_status);
 	}
 	pc_inti_envaiorment(&env, env_var);
+	pc_clear_env(&env);
 }
