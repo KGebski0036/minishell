@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _main.c                                            :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 14:01:50 by kgebski          ###   ########.fr       */
+/*   Created: 2023/06/09 14:05:51 by kgebski           #+#    #+#             */
+/*   Updated: 2023/06/09 14:13:15 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env_var)
+void	pc_print_strings_tab(char **tab)
 {
-	t_env	env;
-	int		exit_status;
+	int	i;
 
-	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
+	if (!tab)
+		return ;
+	i = 0;
+	while (tab[i])
 	{
-		exit_status = pc_exec_command(av[2]);
-		exit(exit_status);
+		ft_printf("el: %d = %s\n", i, tab[i]);
+		i++;
 	}
-	pc_inti_envaiorment(&env, env_var);
 }

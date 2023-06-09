@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 13:24:23 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/09 14:10:16 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,20 @@
 
 typedef struct s_env
 {
+	int	stdi_fd;
+	int	stdo_fd;
+	int	erro_fd;
 
 }	t_env;
 
-int	pc_exec_command(char *command);
+//        -[ exec.c ]-        //
+int		pc_exec_command(char *command);
+
+//        -[ init.c ]-        //
+void	pc_inti_envaiorment(t_env *env, char **env_var);
+void	pc_copy_env_variables(t_env *env, char **env_var);
+
+//        -[ print.c ]-        //
+void	pc_print_strings_tab(char **tab);
 
 #endif

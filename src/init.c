@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _main.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 14:01:50 by kgebski          ###   ########.fr       */
+/*   Created: 2023/06/09 13:52:39 by kgebski           #+#    #+#             */
+/*   Updated: 2023/06/09 14:09:01 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env_var)
+void	pc_inti_envaiorment(t_env *env, char **env_var)
 {
-	t_env	env;
-	int		exit_status;
+	env->stdi_fd = dup(0);
+	env->stdo_fd = dup(1);
+	env->erro_fd = dup(2);
+	pc_copy_env_variables(env, env_var);
+}
 
-	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
-	{
-		exit_status = pc_exec_command(av[2]);
-		exit(exit_status);
-	}
-	pc_inti_envaiorment(&env, env_var);
+void	pc_copy_env_variables(t_env *env, char **env_var)
+{
+	(void)env;
+	pc_print_strings_tab(env_var);
 }
