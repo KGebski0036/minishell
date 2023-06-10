@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:52:39 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/09 14:31:40 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/10 19:13:49 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,5 @@
 
 void	pc_inti_envaiorment(t_env *env, char **env_var)
 {
-	env->stdi_fd = dup(0);
-	env->stdo_fd = dup(1);
-	env->erro_fd = dup(2);
 	pc_copy_env_variables(env, env_var);
 }
