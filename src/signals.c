@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _main.c                                            :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 18:17:12 by kgebski          ###   ########.fr       */
+/*   Created: 2023/06/09 18:17:28 by kgebski           #+#    #+#             */
+/*   Updated: 2023/06/09 19:01:52 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env_var)
+void	pc_signals_interactive(void)
 {
-	t_env	env;
-	int		exit_status;
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
 
-	pc_inti_envaiorment(&env, env_var);
-	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
+void	sigint_handler(int signal)
+{
+	if (signal)
 	{
-		exit_status = pc_exec_command(av[2], &env);
-		exit(exit_status);
+		rl_replace_line("", 0);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-	pc_signals_interactive();
-	pc_start_minishell(&env);
-	pc_clear_env(&env);
 }

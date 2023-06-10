@@ -6,16 +6,22 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 15:21:06 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/09 18:20:28 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdio.h>
+# include <signal.h>
 # include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "color.h"
 # include "libft.h"
+# define MAX_COMMAND_LENGTH 1024
+# define SHELL_PROMPT "PentaCode🐚 "
+# define SHELL_SIGN "❯❯ "
 
 typedef struct s_env
 {
@@ -27,8 +33,11 @@ typedef struct s_env
 
 }	t_env;
 
+//      -[ minishell.c ]-      //
+void	pc_start_minishell(t_env *env);
+
 //        -[ exec.c ]-        //
-int		pc_exec_command(char *command);
+int		pc_exec_command(char *command, t_env *env);
 
 //        -[ init.c ]-        //
 void	pc_inti_envaiorment(t_env *env, char **env_var);
@@ -45,5 +54,9 @@ void	pc_env_del_var(t_env *env, char *name);
 //        -[ clear.c ]-        //
 void	pc_clear_env(t_env *env);
 void	pc_clear_2d_tab(char **tab);
+
+//        -[ signals.c ]-        //
+void	pc_signals_interactive(void);
+void	sigint_handler(int signal);
 
 #endif

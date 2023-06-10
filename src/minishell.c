@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _main.c                                            :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 18:17:12 by kgebski          ###   ########.fr       */
+/*   Created: 2023/06/09 16:50:11 by kgebski           #+#    #+#             */
+/*   Updated: 2023/06/09 18:44:47 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell.h" 
 
-int	main(int ac, char **av, char **env_var)
+void	pc_start_minishell(t_env *env)
 {
-	t_env	env;
-	int		exit_status;
+	char	*input;
 
-	pc_inti_envaiorment(&env, env_var);
-	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
+	while (1)
 	{
-		exit_status = pc_exec_command(av[2], &env);
-		exit(exit_status);
+		pc_signals_interactive();
+		input = readline(BLUE SHELL_PROMPT DARKBLUE SHELL_SIGN NC);
+		if (input == NULL)
+			break ;
+		if (!input[0])
+			continue ;
+		add_history(input);
+		pc_exec_command(input, env);
+		free(input);
 	}
-	pc_signals_interactive();
-	pc_start_minishell(&env);
-	pc_clear_env(&env);
 }

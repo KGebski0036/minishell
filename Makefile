@@ -33,8 +33,8 @@ SRC_DIR		=	./src
 OBJ_DIR		=	./obj
 
 SRC			=	$(wildcard $(SRC_DIR)/*.c) #! REMOVE LATER
-HDRS 		=	-I$(LIBFT_DIR)inc -I$(HDRS_DIR)
-LIBS		=	-L$(LIBFT_DIR)
+HDRS 		=	-I$(LIBFT_DIR)inc -I$(HDRS_DIR)  -I /usr/local/Cellar/readline/8.1.1/include/
+LIBS		=	-L$(LIBFT_DIR) -L /usr/local/Cellar/readline/8.1.1/lib/
 # OBJ         = 	$(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
 OBJ			=	$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
@@ -44,8 +44,8 @@ all: libft ascii-art $(NAME)
 $(NAME): $(OBJ)
 	@echo
 	@echo "$(COMPILATION)Program \"$(NAME)\" compilation:"
-	$(CC) $(CFLAGS) $(LIBS) $(HDRS) $(OBJ) -o $(NAME) $(LIBFT)
-	@echo "$(INFO)$@ executable has been created$(RESET)"
+	$(CC) $(CFLAGS) $(LIBS) $(HDRS) $(OBJ) -o $(NAME) $(LIBFT) -lreadline
+	@echo "$(RESET)$(INFO)$@ executable has been created$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
@@ -53,9 +53,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(eval CURRENT_PROGRESS=$(shell echo $$(($(CURRENT_PROGRESS)+1))))
 	$(eval PERCENTAGE=$(shell echo $$(($(CURRENT_PROGRESS)*100/$(TOTAL_PROGRESS)))))
 	@if [ $(CURRENT_PROGRESS) -eq $(TOTAL_PROGRESS) ]; then \
-		printf "\r$(GREEN_B)[COMPILATION]$(RESET) \033[38;5;40m$(PERCENTAGE)%% [$$(printf '%*s' $$(($(CURRENT_PROGRESS)*$(PROGRESS_WIDTH)/$(TOTAL_PROGRESS))) | tr ' ' '$(PROGRESS_DONE_CHAR)')$$(printf '%*s' $$(($(PROGRESS_WIDTH)-($(CURRENT_PROGRESS)*$(PROGRESS_WIDTH)/$(TOTAL_PROGRESS)))) | tr ' ' '$(PROGRESS_TODO_CHAR)')] $<\033[0m ✅                   \n"; \
+		printf "\r$(GREEN_B)[COMPILATION]$(RESET) \033[38;5;40m$(PERCENTAGE)%% [$$(printf '%*s' $$(($(CURRENT_PROGRESS)*$(PROGRESS_WIDTH)/$(TOTAL_PROGRESS))) | tr ' ' '$(PROGRESS_DONE_CHAR)')$$(printf '%*s' $$(($(PROGRESS_WIDTH)-($(CURRENT_PROGRESS)*$(PROGRESS_WIDTH)/$(TOTAL_PROGRESS)))) | tr ' ' '$(PROGRESS_TODO_CHAR)')] $<\033[0m ✅                   $(RESET)\n"; \
 	else \
-		printf "\r$(GREEN_B)[COMPILATION]$(RESET) \033[38;5;51m$(PERCENTAGE)%% [$$(printf '%*s' $$(($(CURRENT_PROGRESS)*$(PROGRESS_WIDTH)/$(TOTAL_PROGRESS))) | tr ' ' '$(PROGRESS_DONE_CHAR)')$$(printf '%*s' $$(($(PROGRESS_WIDTH)-($(CURRENT_PROGRESS)*$(PROGRESS_WIDTH)/$(TOTAL_PROGRESS)))) | tr ' ' '$(PROGRESS_TODO_CHAR)')] $<"; \
+		printf "\r$(GREEN_B)[COMPILATION]$(RESET) \033[38;5;51m$(PERCENTAGE)%% [$$(printf '%*s' $$(($(CURRENT_PROGRESS)*$(PROGRESS_WIDTH)/$(TOTAL_PROGRESS))) | tr ' ' '$(PROGRESS_DONE_CHAR)')$$(printf '%*s' $$(($(PROGRESS_WIDTH)-($(CURRENT_PROGRESS)*$(PROGRESS_WIDTH)/$(TOTAL_PROGRESS)))) | tr ' ' '$(PROGRESS_TODO_CHAR)')] $<$(RESET)"; \
 	fi
 	@sleep 0.01
 
@@ -100,17 +100,18 @@ git:
 	@echo "$(INFO)$(GREEN)Git add, commit, push performed ✅$(RESET)"
 
 ascii-art:
-	@echo "MINISHELL"
-# ascii-art:
-# 	@echo "\033[38;5;231m                                                                                              __   __ \033[0m"
-# 	@echo "\033[38;5;231m    _____ ________          __________             .__                                        \  \\ \  \\ \033[0m"
-# 	@echo "\033[38;5;195m   /  |  |\_____  \         \______   \__ __  _____|  |__        ________  _  _______  ______  \  \\ \  \\ \033[0m"
-# 	@echo "\033[38;5;159m  /   |  |_/  ____/   ______ |    .___/  |  \/  ___/  |  \      /  ___/\ \/ \/ /\__  \ \___  \  \  \\ \  \\ \033[0m"
-# 	@echo "\033[38;5;123m /    ^   /       \  /_____/ |    |   |  |  /\___ \|   Y  \     \___ \  \     /  / __ \|   \` |  /  / /  / \033[0m"
-# 	@echo "\033[38;5;123m \____   |\_______ \         |____|   |____//____  >___|  /____/____  |  \/\_/  (____  /   __/ /  / /  / \033[0m"
-# 	@echo "\033[38;5;123m      |__|        \/                             \/     \/_____/    \/               \/|__|   /  / /  / \033[0m"
-# 	@echo "\033[38;5;123m                                                                                             /__/ /__/ \033[0m"
-# 	@echo
+	@echo "\033[1m\033[38;5;231m        _.-''|''-._                                \033[0m"
+	@echo "\033[1m\033[38;5;231m    .-'     |     \`-.                       \033[0m"
+	@echo "\033[1m\033[38;5;231m  .'\       |     _____ ________              _____  .__       .__  _________.__           .__  .__    \033[0m"
+	@echo "\033[1m\033[38;5;231m.'   \      |    /  |  |\_____  \            /     \ |__| ____ |__|/   _____/|  |__   ____ |  | |  |   \033[0m"
+	@echo "\033[1m\033[38;5;195m\     \     |   /   |  |_/  ____/   ______  /  \ /  \|  |/    \|  |\_____  \ |  |  \_/ __ \|  | |  |   \033[0m"
+	@echo "\033[1m\033[38;5;159m \`\    \    |  /    ^   /       \  /_____/ /    Y    \  |   |  \  |/        \|   Y  \  ___/|  |_|  |__ \033[0m"
+	@echo "\033[1m\033[38;5;123m   \`\   \   |  \____   |\_______ \         \____|__  /__|___|  /__/_______  /|___|  /\___  >____/____/ \033[0m"
+	@echo "\033[1m\033[38;5;123m     \`\  \  |  /    |__|        \/                 \/        \/           \/      \/     \/            \033[0m"
+	@echo "\033[3m\033[38;5;123m    _.-\`\ \ | / /'-._                                                         by @kgebski & @cjackows\033[0m"
+	@echo "\033[3m\033[38;5;123m   {_____\`\ | /'_____}                    \033[38;5;123m                                                \033[0m"
+	@echo "\033[3m\033[38;5;123m           \`-'            \033[38;5;123m                                                                               \033[0m"
+	@echo
 
 
 .PHONY: all clean fclean re sre git libft
