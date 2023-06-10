@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:31:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/09 15:22:40 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/10 16:28:22 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ char	*pc_get_env_var(t_env *env, char *name)
 		tmp = ft_strchrn(env->env_var[i], '=');
 		if (ft_strncmp(env->env_var[i], name, ft_strlen(name)) == 0
 			&& tmp == ft_strlen(name))
+		{
 			return (ft_strdup(env->env_var[i] + tmp + 1));
+		}
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 22:38:43 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/10 15:40:27 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/10 18:15:49 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,71 @@ t_command	*pc_parse_raw_input(char **input, t_env *env)
 {
 	pc_trim_input(input);
 	pc_interprete_vars(input, env);
-	ft_printf("%s\n", input);
 	return (0);
+}
+
+int	glg(char *str, int n)
+{
+	int	i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (i < n)
+	{
+		if (str[i] == '"')
+			count++;
+		i++;
+	}
+	return (count % 2);
 }
 
 void	pc_interprete_vars(char **input, t_env *env)
 {
 	char	*result;
-	char	quote;
+	char	*pathname;
+	char	*pathval;
 	int		i;
 	int		j;
+	int		k;
+	int		h;
 
-	(void)env;
-	result = (char *)malloc(ft_strlen(*input));
+	result = (char *)malloc(ft_strlen(*input) + 100);
 	if (!result)
 	{
-		free(input);
-		input = 0;
+		free(*input);
+		*input = 0;
 	}
 	i = 0;
 	j = 0;
-	quote = '\0';
 	while ((*input)[i])
 	{
-		if ((*input)[i] == '"' && !quote)
-			quote = '"';
-		else if (quote == (*input)[i])
+		if ((*input)[i] == '\'' && !glg(*input, i))
 		{
-			quote = '\0';
+			result[j++] = (*input)[i++];
+			while ((*input)[i] && (*input)[i] != '\'')
+				result[j++] = (*input)[i++];
+			if ((*input)[i] == '\'')
+				result[j++] = (*input)[i++];
 		}
-		if ((*input)[i] == '$' && !quote)
+		else if ((*input)[i] == '$' && (*input)[i + 1] != ' ')
 		{
-			continue ;
+			k = i + 1;
+			while (((*input)[k] != ' ' && (*input)[k] != '"'
+					&& (*input)[k] != '\'') && (*input)[k])
+				k++;
+			pathname = ft_substr(*input, i + 1, k - i - 1);
+			pathval = pc_get_env_var(env, pathname);
+			h = 0;
+			if (pathval)
+				while (pathval[h])
+					result[j++] = pathval[h++];
+			i += ft_strlen(pathname) + 1;
 		}
-		result[j] = (*input)[i];
-		j++;
-		i++;
+		else
+			result[j++] = (*input)[i++];
 	}
+	result[j] = '\0';
 	free(*input);
 	*input = result;
 }
@@ -96,6 +124,7 @@ void	pc_trim_input(char **input)
 		if ((*input)[i])
 			result[j++] = ' ';
 	}
+	result[j] = '\0';
 	free(*input);
 	if (quote != '\0')
 	{
