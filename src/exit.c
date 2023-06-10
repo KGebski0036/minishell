@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:55:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 16:33:38 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:39:15 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param msg Error message to be displayed.
  * @param failure Failure code indicating the type of exit.
  */
-void	ft_exit(t_env *env, char *msg, int failure)
+void	pc_exit(t_env *env, char *msg, int failure)
 {
 	(void)env;
 	if (failure == -1)

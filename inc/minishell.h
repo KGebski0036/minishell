@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/10 15:40:35 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/10 19:06:30 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_command
 	char	**arguments;
 }			t_command;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}			t_point;
+
 //      -[ minishell.c ]-      //
 void		pc_start_minishell(t_env *env);
 
@@ -70,6 +76,17 @@ void		sigint_handler(int signal);
 t_command	*pc_parse_raw_input(char **input, t_env *env);
 void		pc_interprete_vars(char **input, t_env *env);
 void		pc_trim_input(char **input);
+void		interpreting_vars(char **input, t_env *env, char **result);
+void		add_var_to_input(char **input, t_env *env, char **result,
+				t_point	*ji);
+
+//        -[ parser_helper.c ]-        //
+void		pc_check_quote(char **input, int i, char *quote);
+void		pc_trimming(char **input, char *quote, char	**result);
 int			is_to_trim(char c);
 int			is_quote(char c);
+int			is_quote_closed(char *str, int n);
+
+//        -[ exit.c ]-        //
+void		pc_exit(t_env *env, char *msg, int failure);
 #endif
