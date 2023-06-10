@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/10 15:40:35 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/10 18:54:15 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <termios.h>
+
 # include "color.h"
 # include "libft.h"
 # define MAX_COMMAND_LENGTH 1024
 # define SHELL_PROMPT "PentaCode🐚 "
 # define SHELL_SIGN "❯❯ "
+
+struct termios g_termios_save;
 
 typedef struct s_env
 {
@@ -30,7 +34,7 @@ typedef struct s_env
 	int		erro_fd;
 
 	char	**env_var;
-
+	struct termios termios_new;
 }			t_env;
 
 typedef struct s_command
@@ -42,6 +46,9 @@ typedef struct s_command
 
 //      -[ minishell.c ]-      //
 void		pc_start_minishell(t_env *env);
+void pc_reset_the_terminal(void);
+void pc_mod_term_atributes(t_env *env);
+
 
 //        -[ exec.c ]-        //
 int			pc_exec_command(char *command, t_env *env);
@@ -63,8 +70,8 @@ void		pc_clear_env(t_env *env);
 void		pc_clear_2d_tab(char **tab);
 
 //        -[ signals.c ]-        //
+// void		pc_sigint_handler(int signal);
 void		pc_signals_interactive(void);
-void		sigint_handler(int signal);
 
 //        -[ parser.c ]-        //
 t_command	*pc_parse_raw_input(char **input, t_env *env);

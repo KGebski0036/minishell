@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 18:17:28 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/10 18:44:29 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:50:17 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	pc_sigquit_handler(int signal)
 {
 	if (signal)
 	{
-		printf("%sERROR%s\n", ERROR, NC);
+		printf("%sOK%s\n", ERROR, NC);
+		tcsetattr(0, 0, &g_termios_save);
 		exit(EXIT_FAILURE);
 	}
 }
