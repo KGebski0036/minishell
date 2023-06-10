@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/09 18:20:28 by kgebski          ###   ########.fr       */
+=======
+/*   Updated: 2023/06/10 14:02:12 by kgebski          ###   ########.fr       */
+>>>>>>> parser
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +27,7 @@
 # define SHELL_PROMPT "PentaCode🐚 "
 # define SHELL_SIGN "❯❯ "
 
+
 typedef struct s_env
 {
 	int		stdi_fd;
@@ -31,25 +36,36 @@ typedef struct s_env
 
 	char	**env_var;
 
-}	t_env;
+}			t_env;
+
+typedef struct s_command
+{
+	char	*command;
+	char	*flags;
+	char	**arguments;
+}			t_command;
 
 //      -[ minishell.c ]-      //
 void	pc_start_minishell(t_env *env);
 
 //        -[ exec.c ]-        //
+<<<<<<< HEAD
 int		pc_exec_command(char *command, t_env *env);
+=======
+int			pc_exec_command(char *command);
+>>>>>>> parser
 
 //        -[ init.c ]-        //
-void	pc_inti_envaiorment(t_env *env, char **env_var);
+void		pc_inti_envaiorment(t_env *env, char **env_var);
 
 //        -[ print.c ]-        //
-void	pc_print_strings_tab(char **tab);
+void		pc_print_strings_tab(char **tab);
 
 //     -[ env_variable.c ]-     //
-void	pc_copy_env_variables(t_env *env, char **env_var);
-char	*pc_get_env_var(t_env *env, char *name);
-void	pc_env_add_var(t_env *env, char *name, char *val);
-void	pc_env_del_var(t_env *env, char *name);
+void		pc_copy_env_variables(t_env *env, char **env_var);
+char		*pc_get_env_var(t_env *env, char *name);
+void		pc_env_add_var(t_env *env, char *name, char *val);
+void		pc_env_del_var(t_env *env, char *name);
 
 //        -[ clear.c ]-        //
 void	pc_clear_env(t_env *env);
@@ -59,4 +75,11 @@ void	pc_clear_2d_tab(char **tab);
 void	pc_signals_interactive(void);
 void	sigint_handler(int signal);
 
+//        -[ parser.c ]-        //
+t_command	*pc_parse_raw_input(char *input);
+void		pc_interprete_vars(char **input);
+void		pc_trim_input(char **input);
+int			is_to_trim(char c);
+int			is_quote(char c);
+>>>>>>> parser
 #endif
