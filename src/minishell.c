@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:50:11 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/09 18:44:47 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/10 15:40:42 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	pc_start_minishell(t_env *env)
 		if (!input[0])
 			continue ;
 		add_history(input);
+		pc_parse_raw_input(&input, env);
 		pc_exec_command(input, env);
 		free(input);
 	}
