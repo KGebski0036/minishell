@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/09 16:05:04 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/10 00:32:21 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int	main(int ac, char **av, char **env_var)
 		exit(exit_status);
 	}
 	pc_inti_envaiorment(&env, env_var);
+	pc_parse_raw_input("\"      '          \"");
 	pc_clear_env(&env);
 }
