@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:37:56 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 14:31:53 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/11 19:46:37 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ void	pc_clear_2d_tab(char **tab)
 	int	i;
 
 	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(tab);
+	if (tab)
+	{
+		while (tab[++i])
+			free(tab[i]);
+		free(tab);
+	}
 }
 
 void	pc_free_commands_tab(t_command *commands)

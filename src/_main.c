@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/11 18:11:30 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/11 19:52:05 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	main(int ac, char **av, char **env_var)
 	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
 	{
 		t_command	*commands;
-		commands = pc_parse_raw_input(&av[2], &env);
-		exit_status = pc_exec_command(commands, &env);
+		char *com = ft_strdup(av[2]);
+		commands = pc_parse_raw_input(&com, &env);
+		exit_status = pc_exec_commands(commands, &env);
+		free(com);
 		exit(exit_status);
 	}
 	pc_signals_interactive();
