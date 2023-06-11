@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/10 19:13:30 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/11 15:27:38 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ struct termios	g_termios_save;
 typedef struct s_env
 {
 	char			**env_var;
+	int				last_result;
 	struct termios	termios_new;
 }			t_env;
 
@@ -52,13 +53,14 @@ void		pc_reset_the_terminal(void);
 void		pc_mod_term_atributes(t_env *env);
 
 //        -[ exec.c ]-        //
-int			pc_exec_command(char *command, t_env *env);
+int			pc_exec_command(t_command *commands, t_env *env);
 
 //        -[ init.c ]-        //
 void		pc_inti_envaiorment(t_env *env, char **env_var);
 
 //        -[ print.c ]-        //
 void		pc_print_strings_tab(char **tab);
+void		pc_print_command_table(t_command *commands);
 
 //     -[ env_variable.c ]-     //
 void		pc_copy_env_variables(t_env *env, char **env_var);
@@ -69,6 +71,7 @@ void		pc_env_del_var(t_env *env, char *name);
 //        -[ clear.c ]-        //
 void		pc_clear_env(t_env *env);
 void		pc_clear_2d_tab(char **tab);
+void		pc_free_commands_tab(t_command *commands);
 
 //        -[ signals.c ]-        //
 // void		pc_sigint_handler(int signal);
@@ -88,6 +91,12 @@ void		pc_trimming(char **input, char *quote, char	**result);
 int			is_to_trim(char c);
 int			is_quote(char c);
 int			is_quote_closed(char *str, int n);
+
+//        -[ command_table.c ]-        //
+t_command	*get_command_table(char **input);
+void		get_command(char *str_command, t_command *command);
+void		update_flags(char *str_command, t_command *command, int i, int *j);
+void		update_command_data(char *str_command, t_command *command, int i);
 
 //        -[ exit.c ]-        //
 void		pc_exit(t_env *env, char *msg, int failure);
