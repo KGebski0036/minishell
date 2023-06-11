@@ -24,7 +24,8 @@ SRC = ft_isalnum.c ft_isprint.c ft_memcmp.c ft_putchar_fd.c ft_split.c \
       ft_putstr_fd.c ft_strjoin.c ft_strmapi.c ft_strtrim.c ft_striteri.c \
 	  ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
 	  ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_lstpenultimate.c \
-	  ft_printf.c get_next_line.c get_next_line_utils.c ft_abs.c ft_strchrn.c
+	  ft_printf.c get_next_line.c get_next_line_utils.c ft_abs.c ft_strchrn.c \
+	  ft_str_tolower.c
 #ft_lstdelone.c ft_lstiter.c ft_lstmap.c
 
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))

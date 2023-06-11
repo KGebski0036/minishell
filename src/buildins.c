@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 18:52:06 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 19:45:01 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/11 21:49:42 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	pc_echo(t_command command)
 			new_line = 0;
 	}
 	i = 0;
-	if (command.arguments)
+	if (command.arguments && command.arguments[0] != NULL)
 	{
 		ft_putstr_fd(command.arguments[i++], 1);
 		while (command.arguments[i])
@@ -44,5 +44,34 @@ int	pc_echo(t_command command)
 	}
 	if (new_line)
 		ft_putstr_fd("\n", 1);
+	return (0);
+}
+
+int	pc_cd(t_command command, t_env *env)
+{
+	char	*home;
+
+	if (command.arguments[0] == NULL)
+	{
+		home = pc_get_env_var(env, "HOME");
+		if (home == NULL)
+		{
+			ft_putstr_fd("The HOME variable is not set", 2);
+			return (1);
+		}
+		if (chdir(home) != 0)
+		{
+			ft_putstr_fd("The HOME variable is not valid", 2);
+			return (1);
+		}
+	}
+	else
+	{
+		if (chdir(command.arguments[0]) != 0)
+		{
+			ft_putstr_fd("cd: No such file or directory", 2);
+			return (1);
+		}
+	}
 	return (0);
 }

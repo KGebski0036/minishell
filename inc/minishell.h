@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/11 19:37:56 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/11 21:11:01 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		pc_mod_term_atributes(t_env *env);
 
 //        -[ exec.c ]-        //
 int			pc_exec_commands(t_command *commands, t_env *env);
-int			pc_exec_command(t_command command);
+int			pc_exec_command(t_command command, t_env *env);
 
 //        -[ init.c ]-        //
 void		pc_inti_envaiorment(t_env *env, char **env_var);
@@ -104,4 +104,5 @@ void		pc_exit(t_env *env, char *msg, int failure);
 
 //        -[ buildins.c ]-        //
 int			pc_echo(t_command command);
+int			pc_cd(t_command command, t_env *env);
 #endif

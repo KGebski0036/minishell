@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 15:14:59 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/11 21:59:41 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	get_command(char *str_command, t_command *command)
 		i++;
 	command->command = ft_substr(str_command, 0, i);
 	command->arguments = malloc(sizeof(char *) * 100);
+	command->arguments[0] = 0;
 	if (!str_command[i] || !str_command[i + 1])
 		return ;
 	i++;

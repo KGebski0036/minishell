@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:37:56 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 19:46:37 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/11 21:53:24 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	pc_free_commands_tab(t_command *commands)
 			free(commands[i].command);
 		if (commands[i].flags)
 			free(commands[i].flags);
-		if (commands[i].arguments)
+		if (commands[i].arguments[0] != 0 && commands[i].arguments)
 			pc_clear_2d_tab(commands[i].arguments);
 		i++;
 	}
