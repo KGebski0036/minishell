@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 18:17:28 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/10 18:50:17 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/11 23:11:07 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+struct termios	g_termios_save;
 
 static void	pc_sigint_handler(int signal)
 {

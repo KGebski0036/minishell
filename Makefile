@@ -22,7 +22,7 @@ CURRENT_PROGRESS = 0
 TOTAL_PROGRESS = $(words $(OBJ))
 
 NAME		=	minishell
-CC			=	cc
+CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -g
 #-fsanitize=address
 

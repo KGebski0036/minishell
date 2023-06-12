@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 22:38:43 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 18:19:33 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 01:35:17 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_command	*pc_parse_raw_input(char **input, t_env *env)
 	pc_interprete_vars(input, env);
 	if (!input)
 		pc_exit(env, "failed to interprete var", 2);
-	return (get_command_table(input));
+	return (pc_get_command_table(input));
 }
 
 void	pc_interprete_vars(char **input, t_env *env)
@@ -30,7 +30,7 @@ void	pc_interprete_vars(char **input, t_env *env)
 	result = (char *)malloc(ft_strlen(*input) * sizeof(char *));
 	if (!result)
 		pc_exit(env, "failed to alloc in interprete var", 2);
-	interpreting_vars(input, env, &result);
+	pc_interpreting_vars(input, env, &result);
 	free(*input);
 	*input = result;
 }
@@ -54,7 +54,7 @@ void	pc_trim_input(char **input)
 		*input = result;
 }
 
-void	interpreting_vars(char **input, t_env *env, char **result)
+void	pc_interpreting_vars(char **input, t_env *env, char **result)
 {
 	t_point	ji;
 
@@ -62,7 +62,7 @@ void	interpreting_vars(char **input, t_env *env, char **result)
 	ji.y = 0;
 	while ((*input)[ji.x])
 	{
-		if ((*input)[ji.x] == '\'' && !is_quote_closed(*input, ji.x))
+		if ((*input)[ji.x] == '\'' && !pc_is_quote_closed(*input, ji.x))
 		{
 			(*result)[ji.y++] = (*input)[ji.x++];
 			while ((*input)[ji.x] && (*input)[ji.x] != '\'')
@@ -72,7 +72,7 @@ void	interpreting_vars(char **input, t_env *env, char **result)
 		}
 		else if ((*input)[ji.x] == '$' && (*input)[ji.x + 1] != ' ')
 		{
-			add_var_to_input(input, env, result, &ji);
+			pc_add_var_to_input(input, env, result, &ji);
 		}
 		else
 			(*result)[ji.y++] = (*input)[ji.x++];
@@ -80,7 +80,7 @@ void	interpreting_vars(char **input, t_env *env, char **result)
 	(*result)[ji.y] = '\0';
 }
 
-void	add_var_to_input(char **input, t_env *env, char **result, t_point	*ji)
+void	pc_add_var_to_input(char **input, t_env *env, char **result, t_point	*ji)
 {
 	int		k;
 	int		h;
@@ -88,7 +88,7 @@ void	add_var_to_input(char **input, t_env *env, char **result, t_point	*ji)
 	char	*pathval;
 
 	k = ji->x + 1;
-	while ((*input)[k] != ' ' && !is_quote((*input)[k]) && (*input)[k])
+	while ((*input)[k] != ' ' && !pc_is_quote((*input)[k]) && (*input)[k])
 		k++;
 	pathname = ft_substr(*input, ji->x + 1, k - ji->x - 1);
 	if (ft_strncmp(pathname, "?", 1) == 0)
@@ -99,8 +99,8 @@ void	add_var_to_input(char **input, t_env *env, char **result, t_point	*ji)
 	if (pathval)
 		while (pathval[h])
 			(*result)[ji->y++] = pathval[h++];
-	else
-		(*result)[ji->y++] = ' ';
+	// else
+	// 	(*result)[ji->y++] = ' ';
 	ji->x += ft_strlen(pathname) + 1;
 	free(pathname);
 	free(pathval);

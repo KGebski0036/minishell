@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   commad_table.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 21:59:41 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 01:47:25 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_command	*get_command_table(char **input)
+t_command	*pc_get_command_table(char **input)
 {
 	t_command	*com_tab;
 	char		**splited_input;
@@ -27,75 +27,86 @@ t_command	*get_command_table(char **input)
 		com_tab[i].command = 0;
 		com_tab[i].flags = 0;
 		com_tab[i].arguments = 0;
-		get_command(splited_input[i], &(com_tab[i]));
+		pc_get_command(splited_input[i], &(com_tab[i]));
 	}
 	com_tab[i].command = 0;
 	pc_clear_2d_tab(splited_input);
 	return (com_tab);
 }
 
-void	get_command(char *str_command, t_command *command)
+void	pc_get_command(char *str_com, t_command *command)
 {
 	int		i;
 
 	i = 0;
-	if (str_command[i] == ' ')
-		str_command++;
-	while (str_command[i] && str_command[i] != ' ')
+	if (str_com[i] == ' ')
+		str_com++;
+	while (str_com[i] && str_com[i] != ' ')
 		i++;
-	command->command = ft_substr(str_command, 0, i);
+	command->command = ft_substr(str_com, 0, i);
 	command->arguments = malloc(sizeof(char *) * 100);
 	command->arguments[0] = 0;
-	if (!str_command[i] || !str_command[i + 1])
+	if (!str_com[i] || !str_com[i + 1])
 		return ;
 	i++;
-	update_command_data(str_command, command, i);
+	pc_update_command_data(str_com, command, i);
 }
 
-void	update_flags(char *str_command, t_command *command, int i, int *j)
+void	pc_update_flags(char *str_com, t_command *command, int i, int *j)
 {
 	char	*tmp;
 	char	*tmp2;
 
-	while (str_command[i + *j] != ' ' && str_command[i + *j])
+	while (str_com[i + *j] != ' ' && str_com[i + *j])
 		(*j)++;
 	if (command->flags)
 	{
-		tmp2 = ft_substr(str_command, i + 1, (*j) - 1);
+		tmp2 = ft_substr(str_com, i + 1, (*j) - 1);
 		tmp = ft_strjoin(command->flags, tmp2);
 		free(command->flags);
 		free(tmp2);
 		command->flags = tmp;
 	}
 	else
-		command->flags = ft_substr(str_command, i + 1, (*j) - 1);
+		command->flags = ft_substr(str_com, i + 1, (*j) - 1);
 }
 
-void	update_command_data(char *str_command, t_command *command, int i)
-{	
+void	pc_update_command_data(char *str_com, t_command *command, int i)
+{
 	int		j;
 	int		k;
 
 	k = 0;
-	while (str_command[i])
+	while (str_com[i])
 	{
 		j = 1;
-		if (str_command[i] == '-')
-			update_flags(str_command, command, i, &j);
-		else if (is_quote(str_command[i]))
+		if (str_com[i] == '-')
+			pc_update_flags(str_com, command, i, &j);
+		else if (pc_is_quote(str_com[i]))
 		{
-			while (str_command[i + j] != str_command[i])
+			while (str_com[i + j] != str_com[i])
 				j++;
-			command->arguments[k++] = ft_substr(str_command, i + 1, j++ - 1);
+			if (str_com[i] == str_com[i + 1])
+				command->arguments[k] = ft_strdup(" ");
+			else
+				pc_add_arg(command, &k, ft_substr(str_com, i + 1, j++ - 1));
 		}
 		else
 		{
-			while (str_command[i + j] != ' ' && str_command[i + j])
+			while (str_com[i + j] != ' ' && str_com[i + j])
 				j++;
-			command->arguments[k++] = ft_substr(str_command, i, j);
+			pc_add_arg(command, &k, ft_substr(str_com, i, j));
 		}
-		while ((--j + 2) && str_command[i])
+		while ((--j + 2) && str_com[i])
 			i++;
 	}
 	command->arguments[k] = 0;
+}
+
+void	pc_add_arg(t_command *command, int *k, char *arg)
+{
+	if (arg[0] != 0)
+		command->arguments[(*k)++] = arg;
+	else
+		free(arg);
 }

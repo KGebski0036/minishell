@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/11 21:11:01 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 00:55:22 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # define MAX_COMMAND_LENGTH 1024
 # define SHELL_PROMPT "PentaCode🐚 "
 # define SHELL_SIGN "❯❯ "
-
-struct termios	g_termios_save;
 
 typedef struct s_env
 {
@@ -82,22 +80,23 @@ void		pc_signals_interactive(void);
 t_command	*pc_parse_raw_input(char **input, t_env *env);
 void		pc_interprete_vars(char **input, t_env *env);
 void		pc_trim_input(char **input);
-void		interpreting_vars(char **input, t_env *env, char **result);
-void		add_var_to_input(char **input, t_env *env, char **result,
+void		pc_interpreting_vars(char **input, t_env *env, char **result);
+void		pc_add_var_to_input(char **input, t_env *env, char **result,
 				t_point	*ji);
 
 //        -[ parser_helper.c ]-        //
 void		pc_check_quote(char **input, int i, char *quote);
 void		pc_trimming(char **input, char *quote, char	**result);
-int			is_to_trim(char c);
-int			is_quote(char c);
-int			is_quote_closed(char *str, int n);
+int			pc_is_to_trim(char c);
+int			pc_is_quote(char c);
+int			pc_is_quote_closed(char *str, int n);
 
 //        -[ command_table.c ]-        //
-t_command	*get_command_table(char **input);
-void		get_command(char *str_command, t_command *command);
-void		update_flags(char *str_command, t_command *command, int i, int *j);
-void		update_command_data(char *str_command, t_command *command, int i);
+t_command	*pc_get_command_table(char **input);
+void		pc_get_command(char *str_com, t_command *command);
+void		pc_update_flags(char *str_com, t_command *command, int i, int *j);
+void		pc_update_command_data(char *str_com, t_command *command, int i);
+void		pc_add_arg(t_command *command, int *k, char *arg);
 
 //        -[ exit.c ]-        //
 void		pc_exit(t_env *env, char *msg, int failure);

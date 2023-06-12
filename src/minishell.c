@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:50:11 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 18:50:15 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/11 23:10:40 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern struct termios	g_termios_save;
 
 void	pc_reset_the_terminal(void)
 {
