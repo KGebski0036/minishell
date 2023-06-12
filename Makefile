@@ -21,22 +21,25 @@ PROGRESS_WIDTH = 20
 CURRENT_PROGRESS = 0
 TOTAL_PROGRESS = $(words $(OBJ))
 
-NAME		=	minishell
-CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g
+NAME			=	minishell
+CC				=	gcc
+CFLAGS			=	-Wall -Wextra -Werror -g
 #-fsanitize=address
 
-LIBFT_DIR	=	./inc/42-libft/
-LIBFT		=	$(LIBFT_DIR)libft.a
-HDRS_DIR	=	./inc/
-SRC_DIR		=	./src
-OBJ_DIR		=	./obj
+LIBFT_DIR		=	./inc/42-libft/
+LIBFT			=	$(LIBFT_DIR)libft.a
+HDRS_DIR		=	./inc/
+SRC_DIR			=	./src
+OBJ_DIR			=	./obj
 
-SRC			=	$(wildcard $(SRC_DIR)/*.c) #! REMOVE LATER
-HDRS 		=	-I$(LIBFT_DIR)inc -I$(HDRS_DIR)  -I /usr/local/Cellar/readline/8.1.1/include/
-LIBS		=	-L$(LIBFT_DIR) -L /usr/local/Cellar/readline/8.1.1/lib/
-# OBJ         = 	$(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
-OBJ			=	$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
+RUNTIME_DIR		=	./runtime
+PARSER_DIR		=	./parser
+BUILTIN_DIR		=	./builtin
+
+SRC_LST			=	$(shell find $(SRC_DIR) -name '*.c')
+HDRS 			=	-I$(LIBFT_DIR)inc -I$(HDRS_DIR)  -I /usr/local/Cellar/readline/8.1.1/include/
+LIBS			=	-L$(LIBFT_DIR) -L /usr/local/Cellar/readline/8.1.1/lib/
+OBJ				=	$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_LST))
 
 
 all: libft ascii-art $(NAME)
@@ -48,7 +51,7 @@ $(NAME): $(OBJ)
 	@echo "$(RESET)$(INFO)$@ executable has been created$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(HDRS) -c $^ -o $@
 	$(eval CURRENT_PROGRESS=$(shell echo $$(($(CURRENT_PROGRESS)+1))))
 	$(eval PERCENTAGE=$(shell echo $$(($(CURRENT_PROGRESS)*100/$(TOTAL_PROGRESS)))))
@@ -70,6 +73,7 @@ clean:
 		rm -f $$obj; \
 		printf "$(RED_B)[DELETED]$(RESET) $(RED)$$obj$(RESET)\n"; \
 	done
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@make fclean --quiet -C $(LIBFT_DIR)

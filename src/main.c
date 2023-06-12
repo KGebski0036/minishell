@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _main.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/11 23:47:16 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:24:51 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief 				Entry Function of Minishell
+ * t_env	env			Struct for stroing vars acros the whole minishell
+ * @param env_var		The Environment Variables passed to the program
+ * @return int 			Status Code of Exiting Minishell
+ */
 int	main(int ac, char **av, char **env_var)
 {
 	t_env	env;
 	int		exit_status;
 
-	pc_inti_envaiorment(&env, env_var);
+	pc_init_environment(&env, env_var);
 	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
 	{
 		t_command	*commands;
@@ -27,7 +33,9 @@ int	main(int ac, char **av, char **env_var)
 		free(com);
 		exit(exit_status);
 	}
+	pc_echoctl_off();
 	pc_signals_interactive();
 	pc_start_minishell(&env);
 	pc_clear_env(&env);
+	return (0);
 }
