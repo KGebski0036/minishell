@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commad_table.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 01:47:25 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 13:27:20 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	pc_update_command_data(char *str_com, t_command *command, int i)
 		{
 			while (str_com[i + j] != str_com[i])
 				j++;
-			if (str_com[i] == str_com[i + 1])
-				command->arguments[k] = ft_strdup(" ");
+			if (str_com[i] == str_com[i + 1] && j++)
+				command->arguments[k++] = ft_strdup("\0");
 			else
 				pc_add_arg(command, &k, ft_substr(str_com, i + 1, j++ - 1));
 		}

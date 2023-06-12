@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/12 00:55:22 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 13:24:07 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void		pc_clear_2d_tab(char **tab);
 void		pc_free_commands_tab(t_command *commands);
 
 //        -[ signals.c ]-        //
-// void		pc_sigint_handler(int signal);
 void		pc_signals_interactive(void);
 
 //        -[ parser.c ]-        //
