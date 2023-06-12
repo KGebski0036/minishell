@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:05:51 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 21:57:00 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:28:23 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	pc_print_strings_tab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		ft_printf("el: %d = %s\n", i, tab[i]);
+		ft_printf("%s\n", tab[i]);
 		i++;
 	}
 }

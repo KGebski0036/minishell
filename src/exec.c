@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 14:22:43 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 17:39:30 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,13 @@ int	pc_exec_command(t_command command, t_env *env)
 		return (pc_cd(command, env));
 	if (ft_strncmp(command.command, "exit", ft_strlen(command.command)) == 0)
 		return (pc_exit(command, env));
+	if (ft_strncmp(command.command, "pwd", ft_strlen(command.command)) == 0)
+		return (pc_pwd(command, env));
+	if (ft_strncmp(command.command, "env", ft_strlen(command.command)) == 0)
+		return (pc_env(command, env));
+	if (ft_strncmp(command.command, "export", ft_strlen(command.command)) == 0)
+		return (pc_export(command, env));
+	if (ft_strncmp(command.command, "unset", ft_strlen(command.command)) == 0)
+		return (pc_unset(command, env));
 	return (-1);
 }

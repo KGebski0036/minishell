@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 18:52:06 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 15:07:44 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:20:32 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,22 @@ int	pc_exit(t_command com, t_env *env)
 			exit(256 + result);
 		exit(result);
 	}
+}
+
+int	pc_pwd(t_command com, t_env *env)
+{
+	char	*tmp;
+
+	(void)com;
+	tmp = pc_get_env_var(env, "PWD");
+	if (!tmp || tmp[0] == '\0')
+	{
+		ft_putstr_fd("PWD variable is unset", 2);
+		if (tmp[0] == '\0')
+			free(tmp);
+		return (2);
+	}
+	ft_putstr_fd(tmp, 1);
+	free(tmp);
+	return (0);
 }

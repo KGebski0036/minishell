@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/12 14:39:57 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 17:39:45 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,11 @@ void		pc_quit(t_env *env, char *msg, int failure);
 int			pc_echo(t_command command);
 int			pc_cd(t_command command, t_env *env);
 int			pc_exit(t_command com, t_env *env);
+int			pc_pwd(t_command com, t_env *env);
+
+//        -[ buildins2.c ]-        //
+int			pc_env(t_command command, t_env *env);
+int			pc_export(t_command command, t_env *env);
+int			pc_unset(t_command com, t_env *env);
+
 #endif
