@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buildins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 18:52:06 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/11 23:43:44 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:07:44 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,33 @@ int	pc_cd(t_command command, t_env *env)
 		}
 	}
 	return (0);
+}
+
+int	pc_exit(t_command com, t_env *env)
+{
+	int	result;
+
+	if (com.arguments[0] == NULL)
+	{
+		pc_clear_env(env);
+		exit(0);
+	}
+	if (com.arguments[0] && com.arguments[1])
+	{
+		ft_putstr_fd("Too many arguments", 2);
+		return (1);
+	}
+	if (!ft_isnumber(com.arguments[0]) || ft_overlflow_int(com.arguments[0]))
+	{
+		ft_putstr_fd("Numeric argument is required", 2);
+		return (255);
+	}
+	else
+	{
+		pc_clear_env(env);
+		result = ft_atoi(com.arguments[0]);
+		if (result < 0)
+			exit(256 + result);
+		exit(result);
+	}
 }

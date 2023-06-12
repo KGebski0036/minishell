@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 03:24:51 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/12 13:12:19 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 14:49:14 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
+# include <limits.h>
 # include <stdarg.h>
 
 typedef struct s_list
@@ -32,6 +33,8 @@ typedef struct s_list
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
+int		ft_isnumber(char *str);
+int		ft_overlflow_int(char *str);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);

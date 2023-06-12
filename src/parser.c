@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 22:38:43 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 13:19:22 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 13:57:51 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_command	*pc_parse_raw_input(char **input, t_env *env)
 		return (0);
 	pc_interprete_vars(input, env);
 	if (!input)
-		pc_exit(env, "failed to interprete var", 2);
+		pc_quit(env, "failed to interprete var", 2);
 	return (pc_get_command_table(input));
 }
 
@@ -29,7 +29,7 @@ void	pc_interprete_vars(char **input, t_env *env)
 
 	result = (char *)malloc(ft_strlen(*input) * sizeof(char *));
 	if (!result)
-		pc_exit(env, "failed to alloc in interprete var", 2);
+		pc_quit(env, "failed to alloc in interprete var", 2);
 	pc_interpreting_vars(input, env, &result);
 	free(*input);
 	*input = result;
@@ -42,7 +42,7 @@ void	pc_trim_input(char **input)
 
 	result = (char *)malloc(ft_strlen(*input) + 1);
 	if (!result)
-		pc_exit(0, "failed to trim input", 2);
+		pc_quit(0, "failed to trim input", 2);
 	pc_trimming(input, &quote, &result);
 	free(*input);
 	if (quote != '\0')

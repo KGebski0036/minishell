@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/12 13:24:07 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 14:39:57 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ void		pc_update_command_data(char *str_com, t_command *command, int i);
 void		pc_add_arg(t_command *command, int *k, char *arg);
 
 //        -[ exit.c ]-        //
-void		pc_exit(t_env *env, char *msg, int failure);
+void		pc_quit(t_env *env, char *msg, int failure);
 
 //        -[ buildins.c ]-        //
 int			pc_echo(t_command command);
 int			pc_cd(t_command command, t_env *env);
+int			pc_exit(t_command com, t_env *env);
 #endif

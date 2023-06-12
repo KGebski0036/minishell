@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 13:27:20 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 14:22:15 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	pc_update_command_data(char *str_com, t_command *command, int i)
 	while (str_com[i])
 	{
 		j = 1;
-		if (str_com[i] == '-')
+		if (str_com[i] == '-' && str_com[i + 1] && ft_isalpha(str_com[i + 1]))
 			pc_update_flags(str_com, command, i, &j);
 		else if (pc_is_quote(str_com[i]))
 		{
