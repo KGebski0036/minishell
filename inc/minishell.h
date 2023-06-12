@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/12 13:24:07 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:22:12 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_env
 {
 	char			**env_var;
 	int				last_result;
-	struct termios	termios_new;
 }			t_env;
 
 typedef struct s_command
@@ -45,6 +44,10 @@ typedef struct s_point
 	int	y;
 }			t_point;
 
+//      -[ termios.c ]         //
+void		pc_echoctl_on(void);
+void		pc_echoctl_off(void);
+
 //      -[ minishell.c ]-      //
 void		pc_start_minishell(t_env *env);
 void		pc_reset_the_terminal(void);
@@ -55,7 +58,7 @@ int			pc_exec_commands(t_command *commands, t_env *env);
 int			pc_exec_command(t_command command, t_env *env);
 
 //        -[ init.c ]-        //
-void		pc_inti_envaiorment(t_env *env, char **env_var);
+void		pc_init_environment(t_env *env, char **env_var);
 
 //        -[ print.c ]-        //
 void		pc_print_strings_tab(char **tab);

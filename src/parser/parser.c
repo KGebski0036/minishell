@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 22:38:43 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 13:19:22 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/12 01:35:17 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ void	pc_interpreting_vars(char **input, t_env *env, char **result)
 	(*result)[ji.y] = '\0';
 }
 
-void	pc_add_var_to_input(char **input, t_env *env,
-			char **result, t_point	*ji)
+void	pc_add_var_to_input(char **input, t_env *env, char **result, t_point	*ji)
 {
 	int		k;
 	int		h;
@@ -89,8 +88,7 @@ void	pc_add_var_to_input(char **input, t_env *env,
 	char	*pathval;
 
 	k = ji->x + 1;
-	while ((ft_isupper((*input)[k]) || (*input)[k] == '?')
-			&& !pc_is_quote((*input)[k]) && (*input)[k])
+	while ((*input)[k] != ' ' && !pc_is_quote((*input)[k]) && (*input)[k])
 		k++;
 	pathname = ft_substr(*input, ji->x + 1, k - ji->x - 1);
 	if (ft_strncmp(pathname, "?", 1) == 0)
@@ -101,6 +99,8 @@ void	pc_add_var_to_input(char **input, t_env *env,
 	if (pathval)
 		while (pathval[h])
 			(*result)[ji->y++] = pathval[h++];
+	// else
+	// 	(*result)[ji->y++] = ' ';
 	ji->x += ft_strlen(pathname) + 1;
 	free(pathname);
 	free(pathval);
