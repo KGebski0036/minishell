@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 03:24:51 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/12 14:49:14 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 00:48:21 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isnumber(char *str);
 int		ft_overlflow_int(char *str);
+char	*ft_pathjoin(char *p1, char *p2);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
@@ -90,7 +91,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *content));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-// --- ft_printf --- 
+// --- ft_printf ---
 int		ft_printf(const char *str, ...);
 int		ft_print(char c, char *str);
 int		ft_putnbr(const char *c, int base, size_t nbr);

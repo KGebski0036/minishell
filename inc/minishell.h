@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/12 17:43:07 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 00:59:59 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 # include <stdio.h>
 # include <signal.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <termios.h>
 
 # include "color.h"
@@ -77,6 +81,7 @@ void		pc_free_commands_tab(t_command *commands);
 
 //        -[ signals.c ]-        //
 void		pc_signals_interactive(void);
+void		pc_proc_signal_handler(int signo);
 
 //        -[ parser.c ]-        //
 t_command	*pc_parse_raw_input(char **input, t_env *env);
@@ -114,4 +119,10 @@ int			pc_env(t_command command, t_env *env);
 int			pc_export(t_command command, t_env *env);
 int			pc_unset(t_command com, t_env *env);
 
+//        -[ path_commands.c ]-        //
+int			pc_serch_in_path(t_command com, t_env *env);
+int			pc_check_permision(struct stat file);
+int			pc_execute_path(char **path, char *bin_path,
+				t_env *env, t_command com);
+char		**pc_change_command_to_argv(t_command com);
 #endif
