@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 14:22:15 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 15:58:32 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ t_command	*pc_get_command_table(char **input)
 	splited_input = ft_split(*input, '|');
 	com_tab = malloc(sizeof(t_command)
 			* (ft_get_number_of_words(*input, '|') + 1));
-	i = -1;
-	while (splited_input[++i])
+	i = 0;
+	while (splited_input[i])
 	{
 		com_tab[i].command = 0;
 		com_tab[i].flags = 0;
 		com_tab[i].arguments = 0;
 		pc_get_command(splited_input[i], &(com_tab[i]));
+		i++;
 	}
 	com_tab[i].command = 0;
 	pc_clear_2d_tab(splited_input);
@@ -46,6 +47,8 @@ void	pc_get_command(char *str_com, t_command *command)
 	command->command = ft_substr(str_com, 0, i);
 	command->arguments = malloc(sizeof(char *) * 100);
 	command->arguments[0] = 0;
+	command->fd[0] = 0;
+	command->fd[1] = 1;
 	if (!str_com[i] || !str_com[i + 1])
 		return ;
 	i++;

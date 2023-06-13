@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/13 14:53:48 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 15:39:11 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_command
 	char	*command;
 	char	*flags;
 	char	**arguments;
+	int		fd[2];
 }			t_command;
 
 typedef struct s_point

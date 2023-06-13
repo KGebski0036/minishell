@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:05:51 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 15:28:23 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 16:00:38 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	pc_print_command_table(t_command *commands)
 	i = 0;
 	while (commands[i].command)
 	{
-		ft_printf("\n[%i] command: |%s|", i, commands[i].command);
+		ft_printf("\n[%i] command: |%s|  ", i, commands[i].command);
+		ft_printf("(fds: in: %i out: %i)", commands[i].fd[0],
+			commands[i].fd[1]);
 		if (commands[i].flags)
 			ft_printf(" with flags: |%s|", commands[i].flags);
 		ft_printf("\nArguments:\n");

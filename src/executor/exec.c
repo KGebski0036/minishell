@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 14:50:46 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 18:08:37 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,15 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 	int	i;
 
 	i = 0;
-	//pc_print_command_table(commands);
+	pc_print_command_table(commands);
+	while (commands[i].command)
+	{
+		if (pipe(commands[i].fd) < 0)
+		{
+			ft_putstr_fd("Filed to create a pipe\n", 2);
+		}
+	}
+	i = 0;
 	while (commands[i].command)
 	{
 		env->last_result = pc_exec_command(commands[i++], env);

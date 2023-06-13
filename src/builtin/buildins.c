@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 18:52:06 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 14:05:34 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 18:21:32 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ int	pc_echo(t_command command)
 	i = 0;
 	if (command.arguments && command.arguments[0] != NULL)
 	{
-		ft_putstr_fd(command.arguments[i++], 1);
+		ft_putstr_fd(command.arguments[i++], command.fd[1]);
 		while (command.arguments[i])
 		{
-			ft_putstr_fd(" ", 1);
-			ft_putstr_fd(command.arguments[i++], 1);
+			ft_putstr_fd(" ", command.fd[1]);
+			ft_putstr_fd(command.arguments[i++], command.fd[1]);
 		}
 	}
 	if (new_line)
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", command.fd[1]);
 	return (0);
 }
 
@@ -121,8 +121,8 @@ int	pc_pwd(t_command com, t_env *env)
 			free(tmp);
 		return (2);
 	}
-	ft_putstr_fd(tmp, 1);
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd(tmp, com.fd[1]);
+	ft_putstr_fd("\n", com.fd[1]);
 	free(tmp);
 	return (0);
 }
