@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buildins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 18:52:06 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 18:21:32 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 19:42:20 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

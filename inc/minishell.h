@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/13 15:39:11 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 18:56:29 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include <fcntl.h>
 
 # include "color.h"
 # include "libft.h"
