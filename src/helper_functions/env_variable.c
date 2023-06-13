@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:31:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/10 16:28:22 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 14:14:10 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	pc_env_del_var(t_env *env, char *name)
 	size = 0;
 	while (env->env_var[size])
 		size++;
-	result = (char **)malloc(sizeof(char *) * size);
+	result = (char **)malloc(sizeof(char *) * (size + 1));
 	i = -1;
 	j = 0;
 	while (env->env_var[++i])

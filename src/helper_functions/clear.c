@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:37:56 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 00:17:48 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 14:53:42 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	pc_free_commands_tab(t_command *commands)
 			free(commands[i].command);
 		if (commands[i].flags)
 			free(commands[i].flags);
-		if (commands[i].arguments[0] != 0 && commands[i].arguments)
+		if (commands[i].arguments)
 			pc_clear_2d_tab(commands[i].arguments);
 		i++;
 	}

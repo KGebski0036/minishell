@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 18:52:06 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/12 15:20:32 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 14:05:34 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	pc_echo(t_command command)
 		{
 			if (command.flags[i++] != 'n')
 			{
-				ft_putstr_fd("Unregognized flag", 2);
+				ft_putstr_fd("Unregognized flag\n", 2);
 				return (-1);
 			}
 		}
@@ -50,18 +50,19 @@ int	pc_echo(t_command command)
 int	pc_cd(t_command command, t_env *env)
 {
 	char	*home;
+	char	buffer[1024];
 
 	if (command.arguments[0] == NULL)
 	{
 		home = pc_get_env_var(env, "HOME");
 		if (home == NULL)
 		{
-			ft_putstr_fd("The HOME variable is not set", 2);
+			ft_putstr_fd("The HOME variable is not set\n", 2);
 			return (1);
 		}
 		if (chdir(home) != 0)
 		{
-			ft_putstr_fd("The HOME variable is not valid", 2);
+			ft_putstr_fd("The HOME variable is not valid\n", 2);
 			return (1);
 		}
 	}
@@ -69,10 +70,12 @@ int	pc_cd(t_command command, t_env *env)
 	{
 		if (chdir(command.arguments[0]) != 0)
 		{
-			ft_putstr_fd("cd: No such file or directory", 2);
+			ft_putstr_fd("cd: No such file or directory\n", 2);
 			return (1);
 		}
 	}
+	pc_env_del_var(env, "PWD");
+	pc_env_add_var(env, "PWD", getcwd(buffer, 1024));
 	return (0);
 }
 
@@ -87,12 +90,12 @@ int	pc_exit(t_command com, t_env *env)
 	}
 	if (com.arguments[0] && com.arguments[1])
 	{
-		ft_putstr_fd("Too many arguments", 2);
+		ft_putstr_fd("Too many arguments\n", 2);
 		return (1);
 	}
 	if (!ft_isnumber(com.arguments[0]) || ft_overlflow_int(com.arguments[0]))
 	{
-		ft_putstr_fd("Numeric argument is required", 2);
+		ft_putstr_fd("Numeric argument is required\n", 2);
 		return (255);
 	}
 	else
@@ -119,6 +122,7 @@ int	pc_pwd(t_command com, t_env *env)
 		return (2);
 	}
 	ft_putstr_fd(tmp, 1);
+	ft_putstr_fd("\n", 1);
 	free(tmp);
 	return (0);
 }

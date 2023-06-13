@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 00:39:38 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 14:50:46 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 	{
 		env->last_result = pc_exec_command(commands[i++], env);
 	}
-	pc_free_commands_tab(commands);
 	return (env->last_result);
 }
 

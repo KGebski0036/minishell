@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/13 00:59:59 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/13 14:53:48 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int			pc_unset(t_command com, t_env *env);
 //        -[ path_commands.c ]-        //
 int			pc_serch_in_path(t_command com, t_env *env);
 int			pc_check_permision(struct stat file);
-int			pc_execute_path(char **path, char *bin_path,
-				t_env *env, t_command com);
+int			pc_execute_path(char *bin_path, t_env *env, t_command com);
 char		**pc_change_command_to_argv(t_command com);
 #endif
