@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/13 18:56:29 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:57:55 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ void		pc_mod_term_atributes(t_env *env);
 //        -[ exec.c ]-        //
 int			pc_exec_commands(t_command *commands, t_env *env);
 int			pc_exec_command(t_command command, t_env *env);
+
+//        -[ redirections.c ]-        //
+void		pc_file_redirection_check(t_command *command, t_env *env);
 
 //        -[ init.c ]-        //
 void		pc_init_environment(t_env *env, char **env_var);
