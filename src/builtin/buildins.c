@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 18:52:06 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 19:42:20 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:12:41 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	pc_echo(t_command command)
 	if (new_line)
 		ft_putstr_fd("\n", command.fd[1]);
 	return (0);
+}
+
+void	pc_echo_helper(t_command *command)
+{
+	
 }
 
 int	pc_cd(t_command command, t_env *env)

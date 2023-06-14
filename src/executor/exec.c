@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/14 15:30:45 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:06:21 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 
 	i = 0;
 	pc_print_command_table(commands);
-	// while (commands[i].command)
-	// {
-	// 	if (pipe(commands[i].fd) < 0)
-	// 	{
-	// 		ft_putstr_fd("Filed to create a pipe\n", 2);
-	// 	}
-	// }
 	i = 0;
 	while (commands[i].command)
 	{
