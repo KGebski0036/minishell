@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 18:48:42 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/14 18:23:36 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	pc_exec_commands(t_command *commands, t_env *env)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (commands[i].command)
@@ -24,26 +25,50 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 		i++;
 	}
 	i = 0;
-	while (commands[i].command && commands[i + 1].command)
-	{
-		commands[0].fd[0] = 0;
-		commands[i].fd[1] = commands[i + 1].fd[0];
-		i++;
-	}
-	commands[i].fd[1] = 1;
-	pc_print_command_table(commands);
-	i = 0;
 	while (commands[i].command)
 	{
-		env->last_result = pc_exec_command(commands[i++], env);
-	}
-	i = 0;
-	while (commands[i].command)
-	{
-		close(commands[i].fd[0]);
-		close(commands[i].fd[1]);
+		commands[i].pid = fork();
+		if (commands[i].pid == -1)
+			pc_quit(env, "Filed to create a fork\n", 2);
+		if (commands[i].pid == 0)
+		{
+			j = 0;
+			while (commands[j].command)
+			{
+				if (i != j)
+					close(commands[j].fd[1]);
+				if (i - 1 != j)
+					close(commands[j].fd[0]);
+				j++;
+			}
+			if (commands[i + 1].command)
+			{
+				dup2(commands[i].fd[1], STDOUT_FILENO);
+			}
+			if (i != 0)
+			{
+				dup2(commands[i - 1].fd[0], STDIN_FILENO);
+			}	
+			env->last_result = pc_exec_command(commands[i], env);
+			close(commands[i].fd[1]);
+			if (i != 0)
+				close(commands[i - 1].fd[0]);
+			exit(0);
+		}
 		i++;
 	}
+	//pc_print_command_table(commands);
+	j = 0;
+	while (commands[j].command)
+	{
+		close(commands[j].fd[0]);
+		close(commands[j].fd[1]);
+		j++;
+	}
+	i = -1;
+	while (commands[++i].command)
+		waitpid(commands[i].pid, NULL, 0);
+	printf("%i\n", env->last_result);
 	return (env->last_result);
 }
 
