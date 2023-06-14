@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:49:26 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/14 18:05:55 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:43:21 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ static void	pc_redirection1(t_command *command, int i);
 static void	pc_redirection2(t_command *command, int i);
 static void	pc_redirection3(t_command *command, int i);
 
-void	pc_file_redirection_check(t_command *command, t_env *env)
+void	pc_file_redirection_check(t_command *command)
 {
 	int		i;
 
 	i = 0;
-	(void)env;
 	while (command->arguments && command->arguments[i])
-	{	
+	{
 		if (ft_strncmp(command->arguments[i], ">", 1) == 0)
 		{
 			pc_redirection1(command, i);
@@ -66,6 +65,7 @@ static void	pc_redirection2(t_command *command, int i)
 {
 	int		fd;
 	char	*input;
+
 
 	fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	while (1)

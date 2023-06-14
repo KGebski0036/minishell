@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/14 18:45:26 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/14 23:43:34 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 					close(commands[j].fd[0]);
 				j++;
 			}
+			pc_file_redirection_check(&(commands[i]));
 			if (commands[i + 1].command)
 			{
 				dup2(commands[i].fd[1], STDOUT_FILENO);
@@ -48,8 +49,7 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 			if (i != 0)
 			{
 				dup2(commands[i - 1].fd[0], STDIN_FILENO);
-			}	
-			pc_file_redirection_check(&(commands[i]), env);
+			}
 			env->last_result = pc_exec_command(commands[i], env);
 			close(commands[i].fd[1]);
 			if (i != 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/14 18:41:26 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/14 23:43:28 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			pc_exec_commands(t_command *commands, t_env *env);
 int			pc_exec_command(t_command command, t_env *env);
 
 //        -[ redirections.c ]-        //
-void		pc_file_redirection_check(t_command *command, t_env *env);
+void		pc_file_redirection_check(t_command *command);
 
 //        -[ init.c ]-        //
 void		pc_init_environment(t_env *env, char **env_var);
