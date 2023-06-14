@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/14 18:23:36 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/14 18:45:26 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 			{
 				dup2(commands[i - 1].fd[0], STDIN_FILENO);
 			}	
+			pc_file_redirection_check(&(commands[i]), env);
 			env->last_result = pc_exec_command(commands[i], env);
 			close(commands[i].fd[1]);
 			if (i != 0)
@@ -68,7 +69,6 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 	i = -1;
 	while (commands[++i].command)
 		waitpid(commands[i].pid, NULL, 0);
-	printf("%i\n", env->last_result);
 	return (env->last_result);
 }
 
