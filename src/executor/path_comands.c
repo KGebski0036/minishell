@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 17:12:37 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 17:50:18 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	pc_serch_in_path(t_command com, t_env *env)
 	}
 	pc_clear_2d_tab(path);
 	ft_putstr_fd("Unrecognized command\n", 2);
-	return (175);
+	return (127);
 }
 
 int	pc_check_permision(struct stat file)

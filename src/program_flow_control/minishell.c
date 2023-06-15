@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:50:11 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 16:40:14 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 17:55:03 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	pc_start_minishell(t_env *env)
 			continue ;
 		add_history(input);
 		commands = pc_parse_raw_input(&input, env);
+		if (commands[0].command == 0)
+			continue ;
 		env->last_result = pc_exec_commands(commands, env);
 		pc_free_commands_tab(commands);
 		free(input);

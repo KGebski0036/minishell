@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:25:56 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 16:36:12 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 18:02:24 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	pc_close_fds_child(t_command *commands, int i)
 	}
 }
 
-int	pc_wait_for_child_and_return_result(t_command *commands)
+int	pc_wait_for_child_and_return_result(t_command *commands, t_env *env)
 {
 	int	i;
 	int	result;
@@ -61,6 +61,7 @@ int	pc_wait_for_child_and_return_result(t_command *commands)
 	i = -1;
 	while (commands[++i].command)
 		waitpid(commands[i].pid, &result, 0);
-
+	if (commands[i - 1].pid == 0)
+		return (env->last_result);
 	return (WEXITSTATUS(result) % 255);
 }
