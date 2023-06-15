@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 16:39:37 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 17:12:37 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	pc_serch_in_path(t_command com, t_env *env)
 	i = -1;
 	while (path && path[++i])
 	{
-
-		bin_path = ft_pathjoin(path[i], com.command);
+		if (com.command[0] == '.' || com.command[0] == '/')
+			bin_path = pc_find_script(com.command, env);
+		else
+			bin_path = ft_pathjoin(path[i], com.command);
 		if (lstat(bin_path, &file) != -1)
 		{
 			pc_clear_2d_tab(path);
@@ -44,7 +46,7 @@ int	pc_serch_in_path(t_command com, t_env *env)
 
 int	pc_check_permision(struct stat file)
 {
-	if (1)
+	if ((file.st_mode > 0) && (S_IEXEC & file.st_mode) && S_ISREG(file.st_mode))
 	{
 		if (file.st_mode & S_IXUSR)
 			return (1);
@@ -107,4 +109,23 @@ char	**pc_change_command_to_argv(t_command com)
 	}
 	argv[++i] = 0;
 	return (argv);
+}
+
+char	*pc_find_script(char *script, t_env *env)
+{
+	char	*tmp;
+	char	*tmp2;
+	char	*result;
+
+	if (script[0] == '.')
+	{
+		tmp = ft_substr(script, 1, ft_strlen(script) - 1);
+		tmp2 = pc_get_env_var(env, "PWD");
+		result = ft_strjoin(tmp2, tmp);
+		free(tmp);
+		free(tmp2);
+		return (result);
+	}
+	else
+		return (script);
 }
