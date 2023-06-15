@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commad_table.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 15:58:32 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 22:58:20 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 t_command	*pc_get_command_table(char **input)
 {
-	t_command	*com_tab;
 	char		**splited_input;
+	t_command	*com_tab;
 	int			i;
 
-	splited_input = ft_split(*input, '|');
+	splited_input = pc_input_validation(input);
+	if (!splited_input)
+		return (0);
 	com_tab = malloc(sizeof(t_command)
 			* (ft_get_number_of_words(*input, '|') + 1));
 	i = 0;

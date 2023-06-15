@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/15 18:03:17 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 22:28:50 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ void		pc_trimming(char **input, char *quote, char	**result);
 int			pc_is_to_trim(char c);
 int			pc_is_quote(char c);
 int			pc_is_quote_closed(char *str, int n);
+
+//        -[ input_validation.c ]-        //
+char		**pc_input_validation(char **input);
+void		pc_escape_pipe(char **input);
+char		**pc_unescape_pipe(char **input);
 
 //        -[ command_table.c ]-        //
 t_command	*pc_get_command_table(char **input);

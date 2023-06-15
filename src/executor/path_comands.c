@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_comands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 17:50:18 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 21:36:39 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@ int	pc_serch_in_path(t_command com, t_env *env)
 	struct stat	file;
 	char		*tmp;
 
+	if (com.command[0] == '.' || com.command[0] == '/')
+	{
+		bin_path = pc_find_script(com.command, env);
+		return (pc_execute_path(bin_path, env, com));
+	}
 	tmp = pc_get_env_var(env, "PATH");
 	path = ft_split(tmp, ':');
 	free(tmp);
 	i = -1;
 	while (path && path[++i])
 	{
-		if (com.command[0] == '.' || com.command[0] == '/')
-			bin_path = pc_find_script(com.command, env);
-		else
-			bin_path = ft_pathjoin(path[i], com.command);
+		bin_path = ft_pathjoin(path[i], com.command);
 		if (lstat(bin_path, &file) != -1)
 		{
 			pc_clear_2d_tab(path);
