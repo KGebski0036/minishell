@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/14 23:43:28 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 16:38:11 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ void		pc_mod_term_atributes(t_env *env);
 //        -[ exec.c ]-        //
 int			pc_exec_commands(t_command *commands, t_env *env);
 int			pc_exec_command(t_command command, t_env *env);
+
+//        -[ exec_helper.c ]-        //
+void		pc_create_pipes(t_command *commands, t_env *env);
+void		pc_close_fds_main(t_command *commands);
+void		pc_close_fds_child(t_command *commands, int i);
+int			pc_wait_for_child_and_return_result(t_command *commands);
 
 //        -[ redirections.c ]-        //
 void		pc_file_redirection_check(t_command *command);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/14 23:43:34 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 16:37:24 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,8 @@
 int	pc_exec_commands(t_command *commands, t_env *env)
 {
 	int	i;
-	int	j;
 
-	i = 0;
-	while (commands[i].command)
-	{
-		if (pipe(commands[i].fd) < 0)
-			pc_quit(env, "Filed to create a pipe\n", 2);
-		i++;
-	}
+	pc_create_pipes(commands, env);
 	i = 0;
 	while (commands[i].command)
 	{
@@ -32,44 +25,22 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 			pc_quit(env, "Filed to create a fork\n", 2);
 		if (commands[i].pid == 0)
 		{
-			j = 0;
-			while (commands[j].command)
-			{
-				if (i != j)
-					close(commands[j].fd[1]);
-				if (i - 1 != j)
-					close(commands[j].fd[0]);
-				j++;
-			}
+			pc_close_fds_child(commands, i);
 			pc_file_redirection_check(&(commands[i]));
 			if (commands[i + 1].command)
-			{
 				dup2(commands[i].fd[1], STDOUT_FILENO);
-			}
 			if (i != 0)
-			{
 				dup2(commands[i - 1].fd[0], STDIN_FILENO);
-			}
 			env->last_result = pc_exec_command(commands[i], env);
 			close(commands[i].fd[1]);
 			if (i != 0)
 				close(commands[i - 1].fd[0]);
-			exit(0);
+			exit(env->last_result);
 		}
 		i++;
 	}
-	//pc_print_command_table(commands);
-	j = 0;
-	while (commands[j].command)
-	{
-		close(commands[j].fd[0]);
-		close(commands[j].fd[1]);
-		j++;
-	}
-	i = -1;
-	while (commands[++i].command)
-		waitpid(commands[i].pid, NULL, 0);
-	return (env->last_result);
+	pc_close_fds_main(commands);
+	return (pc_wait_for_child_and_return_result(commands));
 }
 
 int	pc_exec_command(t_command command, t_env *env)

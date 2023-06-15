@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_comands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/14 23:34:00 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 16:39:37 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	pc_serch_in_path(t_command com, t_env *env)
 	}
 	pc_clear_2d_tab(path);
 	ft_putstr_fd("Unrecognized command\n", 2);
-	return (1);
+	return (175);
 }
 
 int	pc_check_permision(struct stat file)

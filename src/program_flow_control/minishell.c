@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:50:11 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/14 14:53:55 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:40:14 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	pc_start_minishell(t_env *env)
 			continue ;
 		add_history(input);
 		commands = pc_parse_raw_input(&input, env);
-		pc_exec_commands(commands, env);
+		env->last_result = pc_exec_commands(commands, env);
 		pc_free_commands_tab(commands);
 		free(input);
 	}
