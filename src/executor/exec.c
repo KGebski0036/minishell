@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 18:08:37 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 00:10:24 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,32 @@
 int	pc_exec_commands(t_command *commands, t_env *env)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	pc_print_command_table(commands);
 	while (commands[i].command)
 	{
 		if (pipe(commands[i].fd) < 0)
-		{
-			ft_putstr_fd("Filed to create a pipe\n", 2);
-		}
+			pc_quit(env, "Filed to create a pipe\n", 2);
+		i++;
 	}
 	i = 0;
 	while (commands[i].command)
 	{
-		env->last_result = pc_exec_command(commands[i++], env);
+		env->last_result = pc_child_proces_command(&commands, env, i);
+		i++;
 	}
+	//ft_printf("resut - %i\n", env->last_result);
+	j = 0;
+	while (commands[j].command)
+	{
+		close(commands[j].fd[0]);
+		close(commands[j].fd[1]);
+		j++;
+	}
+	i = -1;
+	while (commands[++i].command)
+		waitpid(commands[i].pid, NULL, 0);
 	return (env->last_result);
 }
 
@@ -51,4 +62,38 @@ int	pc_exec_command(t_command command, t_env *env)
 	if (ft_strncmp(command.command, "unset", ft_strlen(command.command)) == 0)
 		return (pc_unset(command, env));
 	return (pc_serch_in_path(command, env));
+}
+
+int	pc_child_proces_command(t_command **commands, t_env *env, int i)
+{
+	int	j;
+	int	result;
+
+	(*commands)[i].pid = fork();
+	if ((*commands)[i].pid == -1)
+		pc_quit(env, "Filed to create a fork\n", 2);
+	if ((*commands)[i].pid == 0)
+	{
+		j = -1;
+		while ((*commands)[++j].command)
+		{
+			if (i != j)
+				close((*commands)[j].fd[1]);
+			if (i - 1 != j)
+				close((*commands)[j].fd[0]);
+		}
+		pc_file_redirection_check(&((*commands)[i]));
+		if ((*commands)[i + 1].command)
+			dup2((*commands)[i].fd[1], STDOUT_FILENO);
+		if (i != 0)
+			dup2((*commands)[i - 1].fd[0], STDIN_FILENO);
+		env->last_result = pc_exec_command((*commands)[i], env);
+		close((*commands)[i].fd[1]);
+		if (i != 0)
+			close((*commands)[i - 1].fd[0]);
+		exit(env->last_result);
+	}
+	wait(&result);
+	env->last_result = result;
+	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:50:11 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 14:52:47 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/14 14:53:55 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
