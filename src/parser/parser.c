@@ -3,39 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 22:38:43 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 16:45:27 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:02:34 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_command	*pc_parse_raw_input(char **input, t_env *env)
+static void		pc_trim_input(char **input);
+static void		pc_interprete_vars(t_env *env, char **input);
+static void		pc_interpreting_vars(t_env *env, char **input, char **result);
+static void		pc_add_var_to_input(t_env *env, char **input, char **result,
+					t_point	*ji);
+
+t_command	*pc_parse_raw_input(t_env *env, char **input)
 {
 	pc_trim_input(input);
 	if (!*input)
 		return (0);
-	pc_interprete_vars(input, env);
+	pc_interprete_vars(env, input);
 	if (!input)
 		pc_quit(env, "failed to interprete var", 2);
 	return (pc_get_command_table(input));
 }
 
-void	pc_interprete_vars(char **input, t_env *env)
-{
-	char	*result;
-
-	result = (char *)malloc(ft_strlen(*input) * sizeof(char *));
-	if (!result)
-		pc_quit(env, "failed to alloc in interprete var", 2);
-	pc_interpreting_vars(input, env, &result);
-	free(*input);
-	*input = result;
-}
-
-void	pc_trim_input(char **input)
+static void	pc_trim_input(char **input)
 {
 	char	*result;
 	char	quote;
@@ -54,7 +48,19 @@ void	pc_trim_input(char **input)
 		*input = result;
 }
 
-void	pc_interpreting_vars(char **input, t_env *env, char **result)
+static void	pc_interprete_vars(t_env *env, char **input)
+{
+	char	*result;
+
+	result = (char *)malloc(ft_strlen(*input) * sizeof(char *));
+	if (!result)
+		pc_quit(env, "failed to alloc in interprete var", 2);
+	pc_interpreting_vars(env, input, &result);
+	free(*input);
+	*input = result;
+}
+
+static void	pc_interpreting_vars(t_env *env, char **input, char **result)
 {
 	t_point	ji;
 
@@ -72,7 +78,7 @@ void	pc_interpreting_vars(char **input, t_env *env, char **result)
 		}
 		else if ((*input)[ji.x] == '$' && (*input)[ji.x + 1] != ' ')
 		{
-			pc_add_var_to_input(input, env, result, &ji);
+			pc_add_var_to_input(env, input, result, &ji);
 		}
 		else
 			(*result)[ji.y++] = (*input)[ji.x++];
@@ -80,7 +86,7 @@ void	pc_interpreting_vars(char **input, t_env *env, char **result)
 	(*result)[ji.y] = '\0';
 }
 
-void	pc_add_var_to_input(char **input, t_env *env, char **result,
+static void	pc_add_var_to_input(t_env *env, char **input, char **result,
 	t_point	*ji)
 {
 	int		k;

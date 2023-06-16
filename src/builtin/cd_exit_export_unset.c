@@ -1,51 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buildins.c                                         :+:      :+:    :+:   */
+/*   cd_exit_export_unset.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 18:52:06 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/14 18:41:55 by kgebski          ###   ########.fr       */
+/*   Created: 2023/06/16 16:24:52 by cjackows          #+#    #+#             */
+/*   Updated: 2023/06/16 16:24:55 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	pc_echo(t_command command)
-{
-	int	new_line;
-	int	i;
-
-	i = 0;
-	new_line = 1;
-	if (command.flags)
-	{
-		while (command.flags[i])
-		{
-			if (command.flags[i++] != 'n')
-			{
-				ft_putstr_fd("Unregognized flag\n", 2);
-				return (-1);
-			}
-		}
-		if (command.flags[0] == 'n')
-			new_line = 0;
-	}
-	i = 0;
-	if (command.arguments && command.arguments[0] != NULL)
-	{
-		ft_putstr_fd(command.arguments[i++], 1);
-		while (command.arguments[i])
-		{
-			ft_putstr_fd(" ", 1);
-			ft_putstr_fd(command.arguments[i++], 1);
-		}
-	}
-	if (new_line)
-		ft_putstr_fd("\n", 1);
-	return (0);
-}
 
 int	pc_cd(t_command command, t_env *env)
 {
@@ -108,21 +73,27 @@ int	pc_exit(t_command com, t_env *env)
 	}
 }
 
-int	pc_pwd(t_command com, t_env *env)
+int	pc_export(t_command com, t_env *env)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_substr(com.arguments[0], 0, ft_strchrn(com.arguments[0], '='));
+	pc_env_del_var(env, tmp);
+	tmp2 = ft_substr(com.arguments[0], ft_strchrn(com.arguments[0], '=') + 1,
+			ft_strlen(com.arguments[0]) - ft_strlen(tmp) - 1);
+	pc_env_add_var(env, tmp, tmp2);
+	free(tmp);
+	free(tmp2);
+	return (0);
+}
+
+int	pc_unset(t_command com, t_env *env)
 {
 	char	*tmp;
 
-	(void)com;
-	tmp = pc_get_env_var(env, "PWD");
-	if (!tmp || tmp[0] == '\0')
-	{
-		ft_putstr_fd("PWD variable is unset", 2);
-		if (tmp[0] == '\0')
-			free(tmp);
-		return (2);
-	}
-	ft_putstr_fd(tmp, 1);
-	ft_putstr_fd("\n", 1);
+	tmp = ft_substr(com.arguments[0], 0, ft_strchrn(com.arguments[0], '='));
+	pc_env_del_var(env, tmp);
 	free(tmp);
 	return (0);
 }

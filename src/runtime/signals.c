@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 18:17:28 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/13 00:09:08 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:24:15 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//! In interactive mode it works but inside a program it has to give back
+// one prompt insted of two and it should print the signal ;/
 
 static void	pc_sigint_handler(int signal)
 {
@@ -38,10 +41,8 @@ void	pc_signals_interactive(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	pc_proc_signal_handler(int signo)
+void	pc_proc_signal_handler(void)
 {
-	if (signo == SIGINT)
-	{
-		signal(SIGINT, SIG_DFL);
-	}
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }

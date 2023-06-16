@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_comands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 21:36:39 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:24:38 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	pc_execute_path(char *bin_path, t_env *env, t_command com)
 	pid = fork();
 	argv = 0;
 	result = 0;
-	signal(SIGINT, pc_proc_signal_handler);
+	pc_proc_signal_handler();
 	if (pid == 0)
 	{
 		argv = pc_change_command_to_argv(com);
