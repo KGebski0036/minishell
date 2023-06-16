@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 22:38:43 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 16:45:27 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 14:31:04 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_command	*pc_parse_raw_input(char **input, t_env *env)
 {
 	pc_trim_input(input);
-	if (!*input)
+	if (!**input)
 		return (0);
 	pc_interprete_vars(input, env);
 	if (!input)

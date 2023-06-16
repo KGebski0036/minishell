@@ -1,3 +1,29 @@
+- Evaluation tests
+- Simple Command
+/bin/ls
+/bin/pwd
+/bin/test
+/bin/didnotexist
+
+           
+      
+- Arguments
+/bin/ls /
+/bin/ls .
+/bin/ls ..
+/bin/ls ../..
+/bin/mkdir aaa
+/bin/rm aaa
+- Echo
+echo aaa bbb
+echo -n aaa bbb
+- Exit
+exit
+exit 42
+exit 1 2
+- Return value
+echo $?
+
 - CD part : For next tests, you will need : \\\033[0;33mecho, pwd, unset, redirections (normal and stderror) and semicolons (;).
 cd
 cd ..

@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 13:57:34 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 14:22:38 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	pc_get_command(char *str_com, t_command *command)
 	command->fd[0] = 0;
 	command->fd[1] = 1;
 	command->arguments = malloc(sizeof(char *)
-			* (pc_count_args(str_com, i + 1) + 1));
+			* (pc_count_args(str_com, i) + 1));
 	command->arguments[0] = 0;
 	if (!str_com[i] || !str_com[i + 1])
 		return ;
