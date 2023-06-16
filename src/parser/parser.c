@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 22:38:43 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 17:26:57 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 18:12:50 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		pc_add_var_to_input(t_env *env, char **input, char **result,
 t_command	*pc_parse_raw_input(t_env *env, char **input)
 {
 	pc_trim_input(input);
-	if (!**input)
+	if (!*input || !**input)
 		return (0);
 	pc_interprete_vars(env, input);
 	if (!input)

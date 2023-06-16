@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 17:02:51 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:12:14 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 static void	pc_start_minishell(t_env *env);
 static void	pc_free_commands_tab(t_command *commands);
-static void	pc_tester(t_env *env, int ac, char **av);
 
 int	main(int ac, char **av, char **env_var)
 {
 	t_env	env;
 
-	// (void)ac;
-	// (void)av;
+	(void)ac;
+	(void)av;
 	pc_copy_env_variables(&env, env_var);
-	pc_tester(&env, ac, av);
 	pc_mod_term_atributes_echoctl_off();
 	pc_signals_interactive();
 	pc_start_minishell(&env);
@@ -92,22 +90,5 @@ void	pc_quit(t_env *env, char *msg, int failure)
 	{
 		printf("%s%s%s\n", ERROR, msg, NC);
 		exit(failure);
-	}
-}
-
-static void	pc_tester(t_env *env, int ac, char **av)
-{
-	int		exit_status;
-
-	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
-	{
-		t_command	*commands;
-		char *com = ft_strdup(av[2]);
-		commands = pc_parse_raw_input(env, &com);
-		if (!commands)
-			exit(2);
-		exit_status = pc_exec_commands(env, commands);
-		free(com);
-		exit(exit_status);
 	}
 }
