@@ -6,13 +6,13 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 16:55:13 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 17:26:39 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pc_serch_in_path(t_command com, t_env *env)
+int	pc_search_in_path(t_env *env, t_command com)
 {
 	int			i;
 	char		*bin_path;
@@ -71,7 +71,7 @@ int	pc_execute_path(char *bin_path, t_env *env, t_command com)
 	pid = fork();
 	argv = 0;
 	result = 0;
-	signal(SIGINT, pc_proc_signal_handler);
+	pc_proc_signal_handler();
 	if (pid == 0)
 	{
 		argv = pc_change_command_to_argv(com);

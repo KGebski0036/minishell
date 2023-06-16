@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 14:30:48 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:02:41 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,21 @@ typedef struct s_point
 	int	y;
 }			t_point;
 
+//     -[ env_variable.c ]-     //
+void		pc_copy_env_variables(t_env *env, char **env_var);
+char		*pc_get_env_var(t_env *env, char *name);
+void		pc_env_add_var(t_env *env, char *name, char *val);
+void		pc_env_del_var(t_env *env, char *name);
+
 //      -[ termios.c ]         //
 void		pc_mod_term_atributes_echoctl_on(void);
 void		pc_mod_term_atributes_echoctl_off(void);
 
+//        -[ parser.c ]-        //
+t_command	*pc_parse_raw_input(t_env *env, char **input);
+
 //        -[ exec.c ]-        //
-int			pc_exec_commands(t_command *commands, t_env *env);
-int			pc_exec_fork_command(t_command command, t_env *env);
-int			pc_exec_notfork_command(t_command command, t_env *env);
-void		pc_fork_child(t_command *commands, t_env *env, int i);
+int			pc_exec_commands(t_env *env, t_command *commands);
 
 //        -[ exec_helper.c ]-        //
 void		pc_create_pipes(t_command *commands, t_env *env);
@@ -76,28 +82,13 @@ void		pc_file_redirection_check(t_command *command);
 void		pc_print_strings_tab(char **tab);
 void		pc_print_command_table(t_command *commands);
 
-//     -[ env_variable.c ]-     //
-void		pc_copy_env_variables(t_env *env, char **env_var);
-char		*pc_get_env_var(t_env *env, char *name);
-void		pc_env_add_var(t_env *env, char *name, char *val);
-void		pc_env_del_var(t_env *env, char *name);
-
 //        -[ clear.c ]-        //
 void		pc_clear_env(t_env *env);
 void		pc_clear_2d_tab(char **tab);
-void		pc_free_commands_tab(t_command *commands);
 
 //        -[ signals.c ]-        //
 void		pc_signals_interactive(void);
-void		pc_proc_signal_handler(int signo);
-
-//        -[ parser.c ]-        //
-t_command	*pc_parse_raw_input(char **input, t_env *env);
-void		pc_interprete_vars(char **input, t_env *env);
-void		pc_trim_input(char **input);
-void		pc_interpreting_vars(char **input, t_env *env, char **result);
-void		pc_add_var_to_input(char **input, t_env *env, char **result,
-				t_point	*ji);
+void		pc_proc_signal_handler(void);
 
 //        -[ parser_helper.c ]-        //
 void		pc_check_quote(char **input, int i, char *quote);
@@ -123,18 +114,18 @@ void		pc_add_arg(t_command *command, int *k, char *arg);
 void		pc_quit(t_env *env, char *msg, int failure);
 
 //        -[ buildins.c ]-        //
-int			pc_echo(t_command command);
-int			pc_cd(t_command command, t_env *env);
-int			pc_exit(t_command com, t_env *env);
-int			pc_pwd(t_command com, t_env *env);
+int			pc_echo(t_command com);
+int			pc_pwd(t_env *env);
+int			pc_env(t_env *env);
 
 //        -[ buildins2.c ]-        //
-int			pc_env(t_command command, t_env *env);
-int			pc_export(t_command command, t_env *env);
-int			pc_unset(t_command com, t_env *env);
+int			pc_cd(t_env *env, t_command com);
+int			pc_exit(t_env *env, t_command com);
+int			pc_export(t_env *env, t_command com);
+int			pc_unset(t_env *env, t_command com);
 
 //        -[ path_commands.c ]-        //
-int			pc_serch_in_path(t_command com, t_env *env);
+int			pc_search_in_path(t_env *env, t_command com);
 int			pc_check_permision(struct stat file);
 int			pc_execute_path(char *bin_path, t_env *env, t_command com);
 char		**pc_change_command_to_argv(t_command com);
