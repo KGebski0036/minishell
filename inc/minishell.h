@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 16:26:38 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:39:53 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,18 @@ void		pc_add_arg(t_command *command, int *k, char *arg);
 void		pc_quit(t_env *env, char *msg, int failure);
 
 //        -[ buildins.c ]-        //
-int			pc_echo(t_command command);
+int			pc_echo(t_command com);
 int			pc_pwd(t_env *env);
-int			pc_env(t_command command, t_env *env);
+int			pc_env(t_env *env);
 
 //        -[ buildins2.c ]-        //
-int			pc_cd(t_command command, t_env *env);
+int			pc_cd(t_env *env, t_command com);
 int			pc_exit(t_command com, t_env *env);
-int			pc_export(t_command command, t_env *env);
+int			pc_export(t_command com, t_env *env);
 int			pc_unset(t_command com, t_env *env);
 
 //        -[ path_commands.c ]-        //
-int			pc_serch_in_path(t_command com, t_env *env);
+int			pc_search_in_path(t_env *env, t_command com);
 int			pc_check_permision(struct stat file);
 int			pc_execute_path(char *bin_path, t_env *env, t_command com);
 char		**pc_change_command_to_argv(t_command com);

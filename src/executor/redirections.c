@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:49:26 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/14 23:43:21 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 16:44:06 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void	pc_redirection2(t_command *command, int i)
 {
 	int		fd;
 	char	*input;
-
 
 	fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	while (1)

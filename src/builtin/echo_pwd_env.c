@@ -6,15 +6,15 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:25:13 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 16:26:49 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:36:05 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	pc_echo_helper(t_command *command, int *new_line);
+static int	pc_echo_helper(t_command *com, int *new_line);
 
-int	pc_echo(t_command command)
+int	pc_echo(t_command com)
 {
 	int	new_line;
 	int	ret_val;
@@ -22,14 +22,14 @@ int	pc_echo(t_command command)
 
 	i = 0;
 	new_line = 1;
-	ret_val = pc_echo_helper(&command, &new_line);
-	if (command.arguments && command.arguments[0] != NULL)
+	ret_val = pc_echo_helper(&com, &new_line);
+	if (com.arguments && com.arguments[0] != NULL)
 	{
-		ft_putstr_fd(command.arguments[i++], 1);
-		while (command.arguments[i])
+		ft_putstr_fd(com.arguments[i++], 1);
+		while (com.arguments[i])
 		{
 			ft_putstr_fd(" ", 1);
-			ft_putstr_fd(command.arguments[i++], 1);
+			ft_putstr_fd(com.arguments[i++], 1);
 		}
 	}
 	if (new_line)
@@ -37,22 +37,22 @@ int	pc_echo(t_command command)
 	return (ret_val);
 }
 
-static int	pc_echo_helper(t_command *command, int *new_line)
+static int	pc_echo_helper(t_command *com, int *new_line)
 {
 	int	i;
 
 	i = 0;
-	if (command->flags)
+	if (com->flags)
 	{
-		while (command->flags[i])
+		while (com->flags[i])
 		{
-			if (command->flags[i++] != 'n')
+			if (com->flags[i++] != 'n')
 			{
 				ft_putstr_fd("Unregognized flag\n", 2);
 				return (-1);
 			}
 		}
-		if (command->flags[0] == 'n')
+		if (com->flags[0] == 'n')
 			*new_line = 0;
 	}
 	return (0);
@@ -76,9 +76,8 @@ int	pc_pwd(t_env *env)
 	return (0);
 }
 
-int	pc_env(t_command com, t_env *env)
+int	pc_env(t_env *env)
 {
-	(void)com;
 	pc_print_strings_tab(env->env_var);
 	return (0);
 }

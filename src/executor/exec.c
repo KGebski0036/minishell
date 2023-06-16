@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 16:26:39 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:35:26 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ static int	pc_exec_fork_command(t_env *env, t_command command)
 	if (ft_strncmp(command.command, "pwd", ft_strlen(command.command)) == 0)
 		return (pc_pwd(env));
 	if (ft_strncmp(command.command, "env", ft_strlen(command.command)) == 0)
-		return (pc_env(env, command));
-	return (pc_serch_in_path(env, command));
+		return (pc_env(env));
+	return (pc_search_in_path(env, command));
 }

@@ -6,20 +6,31 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:24:52 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 16:24:55 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:43:46 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pc_cd(t_command command, t_env *env)
+static int	pc_cd_helper(t_command *com, char *home);
+
+int	pc_cd(t_env *env, t_command com)
 {
 	char	*home;
 	char	buffer[1024];
+	int		ret_val;
 
-	if (command.arguments[0] == NULL)
+	home = pc_get_env_var(env, "HOME");
+	ret_val = pc_cd_helper(&com, home);
+	pc_env_del_var(env, "PWD");
+	pc_env_add_var(env, "PWD", getcwd(buffer, 1024));
+	return (ret_val);
+}
+
+static int	pc_cd_helper(t_command *com, char *home)
+{
+	if (com->arguments[0] == NULL)
 	{
-		home = pc_get_env_var(env, "HOME");
 		if (home == NULL)
 		{
 			ft_putstr_fd("The HOME variable is not set\n", 2);
@@ -33,14 +44,12 @@ int	pc_cd(t_command command, t_env *env)
 	}
 	else
 	{
-		if (chdir(command.arguments[0]) != 0)
+		if (chdir(com->arguments[0]) != 0)
 		{
 			ft_putstr_fd("cd: No such file or directory\n", 2);
 			return (1);
 		}
 	}
-	pc_env_del_var(env, "PWD");
-	pc_env_add_var(env, "PWD", getcwd(buffer, 1024));
 	return (0);
 }
 

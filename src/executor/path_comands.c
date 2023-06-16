@@ -6,13 +6,13 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 15:24:38 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:55:10 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pc_serch_in_path(t_command com, t_env *env)
+int	pc_search_in_path(t_env *env, t_command com)
 {
 	int			i;
 	char		*bin_path;
