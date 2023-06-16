@@ -3,34 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:50:11 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 21:15:34 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 14:29:06 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pc_start_minishell(t_env *env)
-{
-	char		*input;
-	t_command	*commands;
 
-	while (1)
-	{
-		pc_signals_interactive();
-		input = readline(BLUE SHELL_PROMPT DARKBLUE SHELL_SIGN NC);
-		if (input == NULL)
-			break ;
-		if (!input[0])
-			continue ;
-		add_history(input);
-		commands = pc_parse_raw_input(&input, env);
-		if (!commands || commands[0].command == 0)
-			continue ;
-		env->last_result = pc_exec_commands(commands, env);
-		pc_free_commands_tab(commands);
-		free(input);
-	}
-}
