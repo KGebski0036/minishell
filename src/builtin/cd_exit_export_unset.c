@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_exit_export_unset.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:24:52 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 16:43:46 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:29:07 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	pc_cd_helper(t_command *com, char *home)
 	return (0);
 }
 
-int	pc_exit(t_command com, t_env *env)
+int	pc_exit(t_env *env, t_command com)
 {
 	int	result;
 
@@ -82,7 +82,7 @@ int	pc_exit(t_command com, t_env *env)
 	}
 }
 
-int	pc_export(t_command com, t_env *env)
+int	pc_export(t_env *env, t_command com)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -97,7 +97,7 @@ int	pc_export(t_command com, t_env *env)
 	return (0);
 }
 
-int	pc_unset(t_command com, t_env *env)
+int	pc_unset(t_env *env, t_command com)
 {
 	char	*tmp;
 
