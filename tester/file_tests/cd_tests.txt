@@ -23,6 +23,12 @@ exit 42
 exit 1 2
 - Return value
 echo $?
+- Double quotes
+echo "cat lol.c | cat > lol.c"
+echo "cat lol.c | cat > lol.c    "
+- single quotes
+echo '$USER'
+echo '    | <> << >>'
 
 - CD part : For next tests, you will need : \\\033[0;33mecho, pwd, unset, redirections (normal and stderror) and semicolons (;).
 cd

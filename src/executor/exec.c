@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 14:02:26 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:16:41 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 		result = pc_exec_notfork_command(commands[i], env);
 		commands[i].pid = 0;
 		if (result == -1)
+		{
 			pc_fork_child(commands, env, i);
+		}
 		else
 			env->last_result = result;
 		i++;
@@ -76,6 +78,6 @@ void	pc_fork_child(t_command *commands, t_env *env, int i)
 		close(commands[i].fd[1]);
 		if (i != 0)
 			close(commands[i - 1].fd[0]);
-		exit(env->last_result);
+		exit(env->last_result % 255);
 	}
 }

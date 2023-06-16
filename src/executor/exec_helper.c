@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:25:56 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 18:02:24 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:17:42 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	pc_wait_for_child_and_return_result(t_command *commands, t_env *env)
 
 	i = -1;
 	while (commands[++i].command)
-		waitpid(commands[i].pid, &result, 0);
+		wait(&result);
 	if (commands[i - 1].pid == 0)
 		return (env->last_result);
 	return (WEXITSTATUS(result) % 255);

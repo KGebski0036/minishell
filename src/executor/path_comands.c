@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_comands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 21:36:39 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 16:55:13 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	pc_serch_in_path(t_command com, t_env *env)
 		return (pc_execute_path(bin_path, env, com));
 	}
 	tmp = pc_get_env_var(env, "PATH");
+	if (!tmp)
+		return (127);
 	path = ft_split(tmp, ':');
 	free(tmp);
 	i = -1;
@@ -81,9 +83,10 @@ int	pc_execute_path(char *bin_path, t_env *env, t_command com)
 		ft_putstr_fd("Fork failed", 2);
 		return (-1);
 	}
-	wait(&pid);
+	wait(&result);
 	free(bin_path);
 	pc_clear_2d_tab(argv);
+	env->last_result = result;
 	return (result);
 }
 
