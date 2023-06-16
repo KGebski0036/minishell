@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 16:35:26 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:03:46 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	pc_exec_notfork_command(t_env *env, t_command command);
 static int	pc_exec_fork_command(t_env *env, t_command command);
 static void	pc_fork_child(t_env *env, t_command *commands, int i);
 
-int	pc_exec_commands(t_command *commands, t_env *env)
+int	pc_exec_commands(t_env *env, t_command *commands)
 {
 	int	i;
 	int	result;
@@ -41,13 +41,13 @@ static int	pc_exec_notfork_command(t_env *env, t_command command)
 {
 	ft_str_tolower(command.command);
 	if (ft_strncmp(command.command, "cd", ft_strlen(command.command)) == 0)
-		return (pc_cd(command, env));
+		return (pc_cd(env, command));
 	if (ft_strncmp(command.command, "exit", ft_strlen(command.command)) == 0)
-		return (pc_exit(command, env));
+		return (pc_exit(env, command));
 	if (ft_strncmp(command.command, "export", ft_strlen(command.command)) == 0)
-		return (pc_export(command, env));
+		return (pc_export(env, command));
 	if (ft_strncmp(command.command, "unset", ft_strlen(command.command)) == 0)
-		return (pc_unset(command, env));
+		return (pc_unset(env, command));
 	return (-1);
 }
 

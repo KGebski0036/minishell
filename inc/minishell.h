@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 16:39:53 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:02:41 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		pc_mod_term_atributes_echoctl_off(void);
 t_command	*pc_parse_raw_input(t_env *env, char **input);
 
 //        -[ exec.c ]-        //
-int			pc_exec_commands(t_command *commands, t_env *env);
+int			pc_exec_commands(t_env *env, t_command *commands);
 
 //        -[ exec_helper.c ]-        //
 void		pc_create_pipes(t_command *commands, t_env *env);
@@ -120,9 +120,9 @@ int			pc_env(t_env *env);
 
 //        -[ buildins2.c ]-        //
 int			pc_cd(t_env *env, t_command com);
-int			pc_exit(t_command com, t_env *env);
-int			pc_export(t_command com, t_env *env);
-int			pc_unset(t_command com, t_env *env);
+int			pc_exit(t_env *env, t_command com);
+int			pc_export(t_env *env, t_command com);
+int			pc_unset(t_env *env, t_command com);
 
 //        -[ path_commands.c ]-        //
 int			pc_search_in_path(t_env *env, t_command com);
