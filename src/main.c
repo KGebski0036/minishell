@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:11:49 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/14 15:19:49 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 22:57:45 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	main(int ac, char **av, char **env_var)
 		t_command	*commands;
 		char *com = ft_strdup(av[2]);
 		commands = pc_parse_raw_input(&com, &env);
+		if (!commands)
+			exit(2);
 		exit_status = pc_exec_commands(commands, &env);
 		free(com);
 		exit(exit_status);

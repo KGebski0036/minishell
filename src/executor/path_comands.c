@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/14 23:34:00 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/15 21:36:39 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,17 @@ int	pc_serch_in_path(t_command com, t_env *env)
 	struct stat	file;
 	char		*tmp;
 
+	if (com.command[0] == '.' || com.command[0] == '/')
+	{
+		bin_path = pc_find_script(com.command, env);
+		return (pc_execute_path(bin_path, env, com));
+	}
 	tmp = pc_get_env_var(env, "PATH");
 	path = ft_split(tmp, ':');
 	free(tmp);
 	i = -1;
 	while (path && path[++i])
 	{
-
 		bin_path = ft_pathjoin(path[i], com.command);
 		if (lstat(bin_path, &file) != -1)
 		{
@@ -39,12 +43,12 @@ int	pc_serch_in_path(t_command com, t_env *env)
 	}
 	pc_clear_2d_tab(path);
 	ft_putstr_fd("Unrecognized command\n", 2);
-	return (1);
+	return (127);
 }
 
 int	pc_check_permision(struct stat file)
 {
-	if (1)
+	if ((file.st_mode > 0) && (S_IEXEC & file.st_mode) && S_ISREG(file.st_mode))
 	{
 		if (file.st_mode & S_IXUSR)
 			return (1);
@@ -107,4 +111,23 @@ char	**pc_change_command_to_argv(t_command com)
 	}
 	argv[++i] = 0;
 	return (argv);
+}
+
+char	*pc_find_script(char *script, t_env *env)
+{
+	char	*tmp;
+	char	*tmp2;
+	char	*result;
+
+	if (script[0] == '.')
+	{
+		tmp = ft_substr(script, 1, ft_strlen(script) - 1);
+		tmp2 = pc_get_env_var(env, "PWD");
+		result = ft_strjoin(tmp2, tmp);
+		free(tmp);
+		free(tmp2);
+		return (result);
+	}
+	else
+		return (script);
 }

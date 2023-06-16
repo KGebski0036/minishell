@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/15 00:06:24 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 14:01:57 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,16 @@ void		pc_mod_term_atributes(t_env *env);
 
 //        -[ exec.c ]-        //
 int			pc_exec_commands(t_command *commands, t_env *env);
-int			pc_exec_command(t_command command, t_env *env);
-int			pc_child_proces_command(t_command **commands, t_env *env, int i);
+int			pc_exec_fork_command(t_command command, t_env *env);
+int			pc_exec_notfork_command(t_command command, t_env *env);
+void		pc_fork_child(t_command *commands, t_env *env, int i);
+
+//        -[ exec_helper.c ]-        //
+void		pc_create_pipes(t_command *commands, t_env *env);
+void		pc_close_fds_main(t_command *commands);
+void		pc_close_fds_child(t_command *commands, int i);
+int			pc_wait_for_child_and_return_result(t_command *commands,
+				t_env *env);
 
 //        -[ redirections.c ]-        //
 void		pc_file_redirection_check(t_command *command);
@@ -105,6 +113,12 @@ int			pc_is_to_trim(char c);
 int			pc_is_quote(char c);
 int			pc_is_quote_closed(char *str, int n);
 
+//        -[ input_validation.c ]-        //
+char		**pc_input_validation(char **input);
+void		pc_escape_pipe(char **input);
+char		**pc_unescape_pipe(char **input);
+int			pc_count_args(char *str_com, int i);
+
 //        -[ command_table.c ]-        //
 t_command	*pc_get_command_table(char **input);
 void		pc_get_command(char *str_com, t_command *command);
@@ -131,4 +145,5 @@ int			pc_serch_in_path(t_command com, t_env *env);
 int			pc_check_permision(struct stat file);
 int			pc_execute_path(char *bin_path, t_env *env, t_command com);
 char		**pc_change_command_to_argv(t_command com);
+char		*pc_find_script(char *script, t_env *env);
 #endif
