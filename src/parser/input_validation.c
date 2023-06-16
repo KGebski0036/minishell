@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 22:11:54 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 13:34:22 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 13:59:13 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ int	pc_count_args(char *str_com, int i)
 	while (str_com[i])
 	{
 		j = 1;
-		if (str_com[i] == '-' && str_com[i + 1] && ft_isalpha(str_com[i + 1]))
-			continue ;
-		else if (pc_is_quote(str_com[i]))
+		if (pc_is_quote(str_com[i]))
 		{
 			while (str_com[i + j] != str_com[i])
 				j++;

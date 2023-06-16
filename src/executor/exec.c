@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 18:02:46 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 13:55:40 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	pc_exec_commands(t_command *commands, t_env *env)
 	pc_close_fds_main(commands);
 	return (pc_wait_for_child_and_return_result(commands, env));
 }
-
 
 int	pc_exec_fork_command(t_command command, t_env *env)
 {
