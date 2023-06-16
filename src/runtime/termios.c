@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 14:34:55 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/12 14:48:52 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:31:31 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ characters in the terminal
 *
 * attr					- Current Termios Setting
 */
-void	pc_echoctl_on(void)
+void	pc_mod_term_atributes_echoctl_on(void)
 {
 	struct termios	attr;
 
@@ -48,7 +48,7 @@ characters in the terminal
 *
 * attr					- Current Termios Setting
 */
-void	pc_echoctl_off(void)
+void	pc_mod_term_atributes_echoctl_off(void)
 {
 	struct termios	attr;
 

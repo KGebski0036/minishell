@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 14:01:57 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 14:30:48 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # include "color.h"
 # include "libft.h"
+
 # define MAX_COMMAND_LENGTH 1024
 # define SHELL_PROMPT "PentaCode🐚 "
 # define SHELL_SIGN "❯❯ "
@@ -52,13 +53,8 @@ typedef struct s_point
 }			t_point;
 
 //      -[ termios.c ]         //
-void		pc_echoctl_on(void);
-void		pc_echoctl_off(void);
-
-//      -[ minishell.c ]-      //
-void		pc_start_minishell(t_env *env);
-void		pc_reset_the_terminal(void);
-void		pc_mod_term_atributes(t_env *env);
+void		pc_mod_term_atributes_echoctl_on(void);
+void		pc_mod_term_atributes_echoctl_off(void);
 
 //        -[ exec.c ]-        //
 int			pc_exec_commands(t_command *commands, t_env *env);
@@ -75,9 +71,6 @@ int			pc_wait_for_child_and_return_result(t_command *commands,
 
 //        -[ redirections.c ]-        //
 void		pc_file_redirection_check(t_command *command);
-
-//        -[ init.c ]-        //
-void		pc_init_environment(t_env *env, char **env_var);
 
 //        -[ print.c ]-        //
 void		pc_print_strings_tab(char **tab);
