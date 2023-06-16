@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commad_table.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 22:58:20 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 13:34:01 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,14 @@ void	pc_get_command(char *str_com, t_command *command)
 	while (str_com[i] && str_com[i] != ' ')
 		i++;
 	command->command = ft_substr(str_com, 0, i);
-	command->arguments = malloc(sizeof(char *) * 100);
-	command->arguments[0] = 0;
 	command->fd[0] = 0;
 	command->fd[1] = 1;
 	if (!str_com[i] || !str_com[i + 1])
 		return ;
 	i++;
+	command->arguments = malloc(sizeof(char *)
+			* (pc_count_args(str_com, i) + 1));
+	command->arguments[0] = 0;
 	pc_update_command_data(str_com, command, i);
 }
 
