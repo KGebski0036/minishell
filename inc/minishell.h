@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/15 22:28:50 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 14:01:57 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int			pc_exec_fork_command(t_command command, t_env *env);
 int			pc_exec_notfork_command(t_command command, t_env *env);
 void		pc_fork_child(t_command *commands, t_env *env, int i);
 
-
 //        -[ exec_helper.c ]-        //
 void		pc_create_pipes(t_command *commands, t_env *env);
 void		pc_close_fds_main(t_command *commands);
@@ -118,6 +117,7 @@ int			pc_is_quote_closed(char *str, int n);
 char		**pc_input_validation(char **input);
 void		pc_escape_pipe(char **input);
 char		**pc_unescape_pipe(char **input);
+int			pc_count_args(char *str_com, int i);
 
 //        -[ command_table.c ]-        //
 t_command	*pc_get_command_table(char **input);

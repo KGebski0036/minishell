@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 22:11:54 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/15 23:04:51 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/16 13:59:13 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,31 @@ char	**pc_unescape_pipe(char **input)
 		i++;
 	}
 	return (input);
+}
+
+int	pc_count_args(char *str_com, int i)
+{
+	int		j;
+	int		result;
+
+	result = 0;
+	while (str_com[i])
+	{
+		j = 1;
+		if (pc_is_quote(str_com[i]))
+		{
+			while (str_com[i + j] != str_com[i])
+				j++;
+			result++;
+		}
+		else
+		{
+			while (str_com[i + j] != ' ' && str_com[i + j])
+				j++;
+			result++;
+		}
+		while ((--j + 2) && str_com[i])
+			i++;
+	}
+	return (result);
 }
