@@ -36,7 +36,12 @@ RUNTIME_DIR		=	./runtime
 PARSER_DIR		=	./parser
 BUILTIN_DIR		=	./builtin
 
-SRC_LST			=	$(shell find $(SRC_DIR) -name '*.c')
+SRC_LST			=	src/main.c src/runtime/termios.c src/runtime/signals.c src/parser/parser.c \
+					src/parser/parser_helper.c src/parser/input_validation.c src/parser/commad_table.c \
+					src/helper_functions/print.c src/helper_functions/env_variable.c src/helper_functions/clear.c \
+					src/executor/redirections.c src/executor/path_comands.c src/executor/exec.c \
+					src/executor/exec_helper.c src/builtin/echo_pwd_env.c src/builtin/cd_exit_export_unset.c \
+
 HDRS 			=	-I$(LIBFT_DIR)inc -I$(HDRS_DIR)  -I /usr/local/Cellar/readline/8.1.1/include/
 LIBS			=	-L$(LIBFT_DIR) -L /usr/local/Cellar/readline/8.1.1/lib/
 OBJ				=	$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_LST))
