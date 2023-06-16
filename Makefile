@@ -23,7 +23,7 @@ TOTAL_PROGRESS = $(words $(OBJ))
 
 NAME			=	minishell
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -g
+CFLAGS			=	-Wall -Wextra -Werror
 #-fsanitize=address
 
 LIBFT_DIR		=	./inc/42-libft/
