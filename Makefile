@@ -23,7 +23,7 @@ TOTAL_PROGRESS = $(words $(OBJ))
 
 NAME			=	minishell
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -g
+CFLAGS			=	-Wall -Wextra -Werror
 #-fsanitize=address
 
 LIBFT_DIR		=	./inc/42-libft/
@@ -44,7 +44,7 @@ SRC_LST			=	src/main.c src/runtime/termios.c src/runtime/signals.c src/parser/pa
 
 HDRS 			=	-I$(LIBFT_DIR)inc -I$(HDRS_DIR)  -I /usr/local/Cellar/readline/8.1.1/include/
 LIBS			=	-L$(LIBFT_DIR) -L /usr/local/Cellar/readline/8.1.1/lib/
-OBJ				=	$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_LST))
+OBJ				=	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC_LST))
 
 
 all: libft ascii-art $(NAME)
@@ -67,6 +67,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	fi
 	@sleep 0.01
 
+$(OBJ): | $(OBJ_DIR)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 libft:
 	@make all --quiet -C  $(LIBFT_DIR)
