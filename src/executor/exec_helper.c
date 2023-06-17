@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_helper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:25:56 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 15:17:42 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/17 14:21:08 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,23 @@ int	pc_wait_for_child_and_return_result(t_command *commands, t_env *env)
 	if (commands[i - 1].pid == 0)
 		return (env->last_result);
 	return (WEXITSTATUS(result) % 255);
+}
+
+char	*pc_find_script(char *script, t_env *env)
+{
+	char	*tmp;
+	char	*tmp2;
+	char	*result;
+
+	if (script[0] == '.')
+	{
+		tmp = ft_substr(script, 1, ft_strlen(script) - 1);
+		tmp2 = pc_get_env_var(env, "PWD");
+		result = ft_strjoin(tmp2, tmp);
+		free(tmp);
+		free(tmp2);
+		return (result);
+	}
+	else
+		return (script);
 }

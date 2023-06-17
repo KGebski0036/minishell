@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 22:11:54 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 16:47:27 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/17 14:19:44 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,12 @@ int	pc_count_args(char *str_com, int i)
 			i++;
 	}
 	return (result);
+}
+
+void	pc_add_arg(t_command *command, int *k, char *arg)
+{
+	if (arg[0] != 0)
+		command->arguments[(*k)++] = arg;
+	else
+		free(arg);
 }

@@ -6,7 +6,7 @@
 /*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 12:56:14 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 17:02:41 by cjackows         ###   ########.fr       */
+/*   Updated: 2023/06/17 14:34:13 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void		pc_close_fds_main(t_command *commands);
 void		pc_close_fds_child(t_command *commands, int i);
 int			pc_wait_for_child_and_return_result(t_command *commands,
 				t_env *env);
+char		*pc_find_script(char *script, t_env *env);
 
 //        -[ redirections.c ]-        //
 void		pc_file_redirection_check(t_command *command);
@@ -102,13 +103,15 @@ char		**pc_input_validation(char **input);
 void		pc_escape_pipe(char **input);
 char		**pc_unescape_pipe(char **input);
 int			pc_count_args(char *str_com, int i);
+void		pc_add_arg(t_command *command, int *k, char *arg);
 
 //        -[ command_table.c ]-        //
 t_command	*pc_get_command_table(char **input);
 void		pc_get_command(char *str_com, t_command *command);
 void		pc_update_flags(char *str_com, t_command *command, int i, int *j);
 void		pc_update_command_data(char *str_com, t_command *command, int i);
-void		pc_add_arg(t_command *command, int *k, char *arg);
+int			pc_update_quote_arg(t_command *command,
+				char *str_com, int i, int *k);
 
 //        -[ exit.c ]-        //
 void		pc_quit(t_env *env, char *msg, int failure);
@@ -129,5 +132,6 @@ int			pc_search_in_path(t_env *env, t_command com);
 int			pc_check_permision(struct stat file);
 int			pc_execute_path(char *bin_path, t_env *env, t_command com);
 char		**pc_change_command_to_argv(t_command com);
-char		*pc_find_script(char *script, t_env *env);
+int			pc_find_binary(t_env *env, t_command com, char *bin_path,
+				char **path);
 #endif

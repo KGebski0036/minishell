@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_comands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:30:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 17:26:39 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/17 14:31:45 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int	pc_search_in_path(t_env *env, t_command com)
 {
-	int			i;
 	char		*bin_path;
 	char		**path;
-	struct stat	file;
 	char		*tmp;
+	int			ret_val;
 
 	if (com.command[0] == '.' || com.command[0] == '/')
 	{
@@ -30,6 +29,21 @@ int	pc_search_in_path(t_env *env, t_command com)
 		return (127);
 	path = ft_split(tmp, ':');
 	free(tmp);
+	bin_path = 0;
+	ret_val = pc_find_binary(env, com, bin_path, path);
+	if (ret_val == 127)
+	{
+		ft_putstr_fd("Unrecognized command\n", 2);
+		pc_clear_2d_tab(path);
+	}
+	return (ret_val);
+}
+
+int	pc_find_binary(t_env *env, t_command com, char *bin_path, char **path)
+{
+	struct stat	file;
+	int			i;
+
 	i = -1;
 	while (path && path[++i])
 	{
@@ -43,8 +57,6 @@ int	pc_search_in_path(t_env *env, t_command com)
 		else
 			free(bin_path);
 	}
-	pc_clear_2d_tab(path);
-	ft_putstr_fd("Unrecognized command\n", 2);
 	return (127);
 }
 
@@ -114,23 +126,4 @@ char	**pc_change_command_to_argv(t_command com)
 	}
 	argv[++i] = 0;
 	return (argv);
-}
-
-char	*pc_find_script(char *script, t_env *env)
-{
-	char	*tmp;
-	char	*tmp2;
-	char	*result;
-
-	if (script[0] == '.')
-	{
-		tmp = ft_substr(script, 1, ft_strlen(script) - 1);
-		tmp2 = pc_get_env_var(env, "PWD");
-		result = ft_strjoin(tmp2, tmp);
-		free(tmp);
-		free(tmp2);
-		return (result);
-	}
-	else
-		return (script);
 }

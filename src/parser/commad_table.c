@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commad_table.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:54:23 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 14:22:38 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/17 14:26:39 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,31 @@ void	pc_get_command(char *str_com, t_command *command)
 	pc_update_command_data(str_com, command, i);
 }
 
+void	pc_update_command_data(char *str_com, t_command *command, int i)
+{
+	int		j;
+	int		k;
+
+	k = 0;
+	while (str_com[i])
+	{
+		j = 1;
+		if (str_com[i] == '-' && str_com[i + 1] && ft_isalpha(str_com[i + 1]))
+			pc_update_flags(str_com, command, i, &j);
+		else if (pc_is_quote(str_com[i]))
+			j = pc_update_quote_arg(command, str_com, i, &k);
+		else
+		{
+			while (str_com[i + j] != ' ' && str_com[i + j])
+				j++;
+			pc_add_arg(command, &k, ft_substr(str_com, i, j));
+		}
+		while ((--j + 2) && str_com[i])
+			i++;
+	}
+	command->arguments[k] = 0;
+}
+
 void	pc_update_flags(char *str_com, t_command *command, int i, int *j)
 {
 	char	*tmp;
@@ -77,42 +102,16 @@ void	pc_update_flags(char *str_com, t_command *command, int i, int *j)
 		command->flags = ft_substr(str_com, i + 1, (*j) - 1);
 }
 
-void	pc_update_command_data(char *str_com, t_command *command, int i)
+int	pc_update_quote_arg(t_command *command, char *str_com, int i, int *k)
 {
-	int		j;
-	int		k;
+	int	j;
 
-	k = 0;
-	while (str_com[i])
-	{
-		j = 1;
-		if (str_com[i] == '-' && str_com[i + 1] && ft_isalpha(str_com[i + 1]))
-			pc_update_flags(str_com, command, i, &j);
-		else if (pc_is_quote(str_com[i]))
-		{
-			while (str_com[i + j] != str_com[i])
-				j++;
-			if (str_com[i] == str_com[i + 1] && j++)
-				command->arguments[k++] = ft_strdup("\0");
-			else
-				pc_add_arg(command, &k, ft_substr(str_com, i + 1, j++ - 1));
-		}
-		else
-		{
-			while (str_com[i + j] != ' ' && str_com[i + j])
-				j++;
-			pc_add_arg(command, &k, ft_substr(str_com, i, j));
-		}
-		while ((--j + 2) && str_com[i])
-			i++;
-	}
-	command->arguments[k] = 0;
-}
-
-void	pc_add_arg(t_command *command, int *k, char *arg)
-{
-	if (arg[0] != 0)
-		command->arguments[(*k)++] = arg;
+	j = 1;
+	while (str_com[i + j] != str_com[i])
+		j++;
+	if (str_com[i] == str_com[i + 1] && j++)
+		command->arguments[(*k)++] = ft_strdup("\0");
 	else
-		free(arg);
+		pc_add_arg(command, k, ft_substr(str_com, i + 1, j++ - 1));
+	return (j);
 }

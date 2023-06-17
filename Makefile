@@ -24,6 +24,7 @@ TOTAL_PROGRESS = $(words $(OBJ))
 NAME			=	minishell
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror
+#-g
 #-fsanitize=address
 
 LIBFT_DIR		=	./inc/42-libft/
@@ -32,19 +33,33 @@ HDRS_DIR		=	./inc/
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
 
-RUNTIME_DIR		=	./runtime
-PARSER_DIR		=	./parser
-BUILTIN_DIR		=	./builtin
+RUNTIME_DIR		=	runtime
+PARSER_DIR		=	parser
+BUILTIN_DIR		=	builtin
+EXECUTOR_DIR	=	executor
+HELPER_DIR		=	helper_functions
 
-SRC_LST			=	src/main.c src/runtime/termios.c src/runtime/signals.c src/parser/parser.c \
-					src/parser/parser_helper.c src/parser/input_validation.c src/parser/commad_table.c \
-					src/helper_functions/print.c src/helper_functions/env_variable.c src/helper_functions/clear.c \
-					src/executor/redirections.c src/executor/path_comands.c src/executor/exec.c \
-					src/executor/exec_helper.c src/builtin/echo_pwd_env.c src/builtin/cd_exit_export_unset.c \
+# SRC_LST			=	$(shell find $(SRC_DIR) -name '*.c')
+SRC_LST			=	$(SRC_DIR)/main.c \
+					$(SRC_DIR)/$(BUILTIN_DIR)/cd_exit_export_unset.c \
+					$(SRC_DIR)/$(BUILTIN_DIR)/echo_pwd_env.c \
+					$(SRC_DIR)/$(EXECUTOR_DIR)/exec.c \
+					$(SRC_DIR)/$(EXECUTOR_DIR)/exec_helper.c \
+					$(SRC_DIR)/$(EXECUTOR_DIR)/path_comands.c \
+					$(SRC_DIR)/$(EXECUTOR_DIR)/redirections.c \
+					$(SRC_DIR)/$(HELPER_DIR)/clear.c \
+					$(SRC_DIR)/$(HELPER_DIR)/env_variable.c \
+					$(SRC_DIR)/$(HELPER_DIR)/print.c \
+					$(SRC_DIR)/$(PARSER_DIR)/commad_table.c \
+					$(SRC_DIR)/$(PARSER_DIR)/input_validation.c \
+					$(SRC_DIR)/$(PARSER_DIR)/parser.c \
+					$(SRC_DIR)/$(PARSER_DIR)/parser_helper.c \
+					$(SRC_DIR)/$(RUNTIME_DIR)/signals.c \
+					$(SRC_DIR)/$(RUNTIME_DIR)/termios.c
 
 HDRS 			=	-I$(LIBFT_DIR)inc -I$(HDRS_DIR)  -I /usr/local/Cellar/readline/8.1.1/include/
 LIBS			=	-L$(LIBFT_DIR) -L /usr/local/Cellar/readline/8.1.1/lib/
-OBJ				=	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC_LST))
+OBJ				=	$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_LST))
 
 
 all: libft ascii-art $(NAME)
@@ -67,10 +82,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	fi
 	@sleep 0.01
 
-$(OBJ): | $(OBJ_DIR)
-
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
 
 libft:
 	@make all --quiet -C  $(LIBFT_DIR)
@@ -80,14 +91,14 @@ clean:
 	@make clean --quiet -C $(LIBFT_DIR)
 	@for obj in $(OBJ); do \
 		rm -f $$obj; \
-		printf "$(RED_B)[DELETED]$(RESET) $(RED)$$obj$(RESET)\n"; \
+		printf "$(RED_B)[DELETED]$(RESET) $(RED)[$(NAME)] $$obj$(RESET)\n"; \
 	done
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@make fclean --quiet -C $(LIBFT_DIR)
 	@rm -f $(NAME);
-	@printf "$(RED_B)[DELETED]$(RESET) $(RED)$(NAME)$(RESET)\n"; \
+	@printf "$(RED_B)[DELETED]$(RESET) $(RED)[$(NAME)] $(NAME)$(RESET)\n"; \
 
 fclean_fast:
 	@for obj in $(OBJ); do \

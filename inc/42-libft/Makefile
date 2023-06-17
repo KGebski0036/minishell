@@ -9,12 +9,27 @@ BLUE_B		=	\033[48;5;39m
 INFO		=	\033[48;5;39m[INFORMATION]\033[0m $(BLUE)
 RESET		=	\033[0m
 
+ifeq ($(shell uname), Linux)
+	OS			=	Linux
+	PROGRESS_DONE_CHAR = \#
+	PROGRESS_TODO_CHAR = .
+else
+	OS				=	Mac
+	PROGRESS_DONE_CHAR = 🟩
+	PROGRESS_TODO_CHAR = ⬜️
+endif
+
+PROGRESS_WIDTH = 20
+CURRENT_PROGRESS = 0
+TOTAL_PROGRESS = $(words $(OBJECTS))
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iinclude
 NAME = libft.a
 AR = ar rcs
 SRC_DIR = src
-OBJ_DIR = obj
+OBJ_DIR = ./obj
+
 SRC = ft_isalnum.c ft_isprint.c ft_memcmp.c ft_putchar_fd.c ft_split.c \
       ft_strlcat.c ft_strncmp.c ft_substr.c ft_atoi.c ft_isalpha.c \
       ft_itoa.c ft_memcpy.c ft_putendl_fd.c ft_strchr.c ft_strlcpy.c \
@@ -30,12 +45,6 @@ SRC = ft_isalnum.c ft_isprint.c ft_memcmp.c ft_putchar_fd.c ft_split.c \
 #ft_lstdelone.c ft_lstiter.c ft_lstmap.c
 
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
-
-PROGRESS_WIDTH = 20
-PROGRESS_DONE_CHAR = 🟩
-PROGRESS_TODO_CHAR = ⬜️
-CURRENT_PROGRESS = 0
-TOTAL_PROGRESS = $(words $(OBJECTS))
 
 .PHONY: all clean fclean re
 
@@ -62,12 +71,12 @@ clean:
 	@printf "$(RED_B)[DELETED]$(RESET) $(RED)$(MLX_DIR)\n"
 	@for obj in $(OBJECTS); do \
 		rm -f $$obj; \
-		printf "$(RED_B)[DELETED]$(RESET) $(RED)$$obj$(RESET)\n"; \
+		printf "$(RED_B)[DELETED]$(RESET) $(RED)[$(NAME)] $$obj$(RESET)\n"; \
 	done
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "\033[48;5;160m[DELETED]\033[0m \033[38;5;160m$(NAME)\033[0m"
+	@echo "\033[48;5;160m[DELETED]\033[0m \033[38;5;160m[$(NAME)] $(NAME)\033[0m"
 
 re: fclean all
 
