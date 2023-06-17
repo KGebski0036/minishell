@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_exit_export_unset.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: cjackows <cjackows@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:24:52 by cjackows          #+#    #+#             */
-/*   Updated: 2023/06/16 17:29:07 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/17 14:47:05 by cjackows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,16 @@ int	pc_export(t_env *env, t_command com)
 {
 	char	*tmp;
 	char	*tmp2;
+	int		tmp3;
 
-	tmp = ft_substr(com.arguments[0], 0, ft_strchrn(com.arguments[0], '='));
+	if (!com.arguments[0] || com.arguments[1])
+		return (2);
+	tmp3 = ft_strchrn(com.arguments[0], '=');
+	if (!tmp3)
+		return (3);
+	tmp = ft_substr(com.arguments[0], 0, tmp3);
 	pc_env_del_var(env, tmp);
-	tmp2 = ft_substr(com.arguments[0], ft_strchrn(com.arguments[0], '=') + 1,
+	tmp2 = ft_substr(com.arguments[0], tmp3 + 1,
 			ft_strlen(com.arguments[0]) - ft_strlen(tmp) - 1);
 	pc_env_add_var(env, tmp, tmp2);
 	free(tmp);
@@ -100,8 +106,14 @@ int	pc_export(t_env *env, t_command com)
 int	pc_unset(t_env *env, t_command com)
 {
 	char	*tmp;
+	int		tmp2;
 
-	tmp = ft_substr(com.arguments[0], 0, ft_strchrn(com.arguments[0], '='));
+	if (!com.arguments[0] || com.arguments[1])
+		return (2);
+	tmp2 = ft_strchrn(com.arguments[0], '=');
+	if (!tmp2)
+		return (3);
+	tmp = ft_substr(com.arguments[0], 0, tmp2);
 	pc_env_del_var(env, tmp);
 	free(tmp);
 	return (0);
