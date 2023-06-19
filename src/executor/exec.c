@@ -6,7 +6,7 @@
 /*   By: kgebski <kgebski@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:23:32 by kgebski           #+#    #+#             */
-/*   Updated: 2023/06/16 17:26:33 by kgebski          ###   ########.fr       */
+/*   Updated: 2023/06/17 16:53:09 by kgebski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ static void	pc_fork_child(t_env *env, t_command *commands, int i)
 	if (commands[i].pid == 0)
 	{
 		pc_close_fds_child(commands, i);
-		pc_file_redirection_check(&(commands[i]));
 		if (commands[i + 1].command)
 			dup2(commands[i].fd[1], STDOUT_FILENO);
 		if (i != 0)
 			dup2(commands[i - 1].fd[0], STDIN_FILENO);
+		pc_file_redirection_check(&(commands[i]));
 		env->last_result = pc_exec_fork_command(env, commands[i]);
 		close(commands[i].fd[1]);
 		if (i != 0)
