@@ -65,10 +65,10 @@ OBJ				=	$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_LST))
 all: libft ascii-art $(NAME)
 
 $(NAME): $(OBJ)
-	@echo
-	@echo "$(COMPILATION)Program \"$(NAME)\" compilation:"
+	@echo -e
+	@echo -e "$(COMPILATION)Program \"$(NAME)\" compilation:"
 	$(CC) $(CFLAGS) $(LIBS) $(HDRS) $(OBJ) -o $(NAME) $(LIBFT) -lreadline
-	@echo "$(RESET)$(INFO)$@ executable has been created$(RESET)"
+	@echo -e "$(RESET)$(INFO)$@ executable has been created$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
@@ -116,26 +116,26 @@ norm:
 	@norminette * | grep Error
 
 git:
-	@echo "$(BLUE)"
+	@echo -e "$(BLUE)"
 	git add *
 	@read -p "Commit msg:" msg;\
 	git commit -m "$$msg"
 	git push
-	@echo "$(INFO)$(GREEN)Git add, commit, push performed ✅$(RESET)"
+	@echo -e "$(INFO)$(GREEN)Git add, commit, push performed ✅$(RESET)"
 
 ascii-art:
-	@echo "\033[1m\033[38;5;231m        _.-''|''-._                                \033[0m"
-	@echo "\033[1m\033[38;5;231m    .-'     |     \`-.                       \033[0m"
-	@echo "\033[1m\033[38;5;231m  .'\       |     _____ ________              _____  .__       .__  _________.__           .__  .__    \033[0m"
-	@echo "\033[1m\033[38;5;231m.'   \      |    /  |  |\_____  \            /     \ |__| ____ |__|/   _____/|  |__   ____ |  | |  |   \033[0m"
-	@echo "\033[1m\033[38;5;195m\     \     |   /   |  |_/  ____/   ______  /  \ /  \|  |/    \|  |\_____  \ |  |  \_/ __ \|  | |  |   \033[0m"
-	@echo "\033[1m\033[38;5;159m \`\    \    |  /    ^   /       \  /_____/ /    Y    \  |   |  \  |/        \|   Y  \  ___/|  |_|  |__ \033[0m"
-	@echo "\033[1m\033[38;5;123m   \`\   \   |  \____   |\_______ \         \____|__  /__|___|  /__/_______  /|___|  /\___  >____/____/ \033[0m"
-	@echo "\033[1m\033[38;5;123m     \`\  \  |  /    |__|        \/                 \/        \/           \/      \/     \/            \033[0m"
-	@echo "\033[3m\033[38;5;123m    _.-\`\ \ | / /'-._                                             made with ♥ by @kgebski & @cjackows\033[0m"
-	@echo "\033[3m\033[38;5;123m   {_____\`\ | /'_____}                    \033[38;5;123m                                                \033[0m"
-	@echo "\033[3m\033[38;5;123m           \`-'            \033[38;5;123m                                                                               \033[0m"
-	@echo
+	@echo -e "\033[1m\033[38;5;231m        _.-''|''-._                                \033[0m"
+	@echo -e "\033[1m\033[38;5;231m    .-'     |     \`-.                       \033[0m"
+	@echo -e "\033[1m\033[38;5;231m  .'\       |     _____ ________              _____  .__       .__  _________.__           .__  .__    \033[0m"
+	@echo -e "\033[1m\033[38;5;231m.'   \      |    /  |  |\_____  \            /     \ |__| ____ |__|/   _____/|  |__   ____ |  | |  |   \033[0m"
+	@echo -e "\033[1m\033[38;5;195m\     \     |   /   |  |_/  ____/   ______  /  \ /  \|  |/    \|  |\_____  \ |  |  \_/ __ \|  | |  |   \033[0m"
+	@echo -e "\033[1m\033[38;5;159m \`\    \    |  /    ^   /       \  /_____/ /    Y    \  |   |  \  |/        \|   Y  \  ___/|  |_|  |__ \033[0m"
+	@echo -e "\033[1m\033[38;5;123m   \`\   \   |  \____   |\_______ \         \____|__  /__|___|  /__/_______  /|___|  /\___  >____/____/ \033[0m"
+	@echo -e "\033[1m\033[38;5;123m     \`\  \  |  /    |__|        \/                 \/        \/           \/      \/     \/            \033[0m"
+	@echo -e "\033[3m\033[38;5;123m    _.-\`\ \ | / /'-._                                             made with ♥ by @kgebski & @cjackows\033[0m"
+	@echo -e "\033[3m\033[38;5;123m   {_____\`\ | /'_____}                    \033[38;5;123m                                                \033[0m"
+	@echo -e "\033[3m\033[38;5;123m           \`-'            \033[38;5;123m                                                                               \033[0m"
+	@echo -e
 
 
 .PHONY: all clean fclean re sre git libft
