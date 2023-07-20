@@ -6,6 +6,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 #include <stdio.h>
 
@@ -27,47 +28,23 @@ int	main(int ac, char **av, char **env_var)
 }
 
 static char *pc_make_prompt(t_env *env) {
-    char *prompt = pc_get_env_var(env, "PROMPT");
-    if(prompt == NULL) {
-      // stupid hack
-      char *x = malloc(2);
-      strcpy(x, ">");
-      return x;
-    }
-    const char *TOKEN = "%PWD%";
-    char *pwd_loc = strstr(prompt, TOKEN);
-    if (pwd_loc == NULL) {
-      return prompt;
-    }
     char *pwd = pc_get_env_var(env, "PWD");
-    char *buf = malloc(strlen(prompt)-strlen(TOKEN)+strlen(pwd)+1);
-
-    char *curp = prompt;
-    char *curb = buf;
-    while(curp != pwd_loc) {
-      *curb = *curp;
-      curb++;
-      curp++;
+    char **path = ft_split(pwd, '/');
+    size_t i = 0;
+    while(path[i] != 0) {
+      i++;
     }
-    *curb = '\0';
-    curb = stpcpy(curb, pwd);
-    strcpy(curb, pwd_loc + strlen(TOKEN));
+    char *current_dir =  path[i - 1];
+    
+    char *tmp = ft_strjoin(SHELL_PROMPT, current_dir);
+    char *prompt = ft_strjoin(tmp, SHELL_SIGN);
+    free(tmp);
+    pc_clear_2d_tab(path);
     free(pwd);
-    free(prompt);
-    return buf;
-
-
-
-    /*
-    char *pwd = pc_get_env_var(env, "PWD");
-    char *format = "\001\033[34m\002[%s]🐚>\001\033[0m\002 ";
-    size_t len = strlen(pwd) + strlen(format);
-    char *buf = malloc(len + 1);
-    sprintf(buf, format, pwd);
-    free(pwd);
-    return buf;
-    */
+    return prompt;
 }
+
+
 
 /** @brief Starts minishell within infinite loop. */
 static void	pc_start_minishell(t_env *env)
@@ -98,8 +75,7 @@ static void	pc_start_minishell(t_env *env)
 static void	pc_free_commands_tab(t_command *commands)
 {
 	int	i;
-
-	i = 0;
+i = 0;
 	while (commands[i].command)
 	{
 		if (commands[i].command)

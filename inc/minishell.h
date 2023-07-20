@@ -28,9 +28,8 @@
 # include "libft.h"
 
 # define MAX_COMMAND_LENGTH 1024
-# define SHELL_PROMPT "PentaCode🐚 "
-# define SHELL_SIGN "❯❯ "
-
+# define SHELL_PROMPT "\001\e[38;5;123m\002PentaCode🐚 \001\e[1;32m\002"
+# define SHELL_SIGN " \001\e[38;5;33m\002❯❯ \001\e[0m\002"
 typedef struct s_env
 {
 	char			**env_var;
